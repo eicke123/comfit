@@ -15,7 +15,7 @@ public class TweetActivity extends Activity {
 	   protected void onCreate(Bundle savedInstanceState)
 	   {
 	      super.onCreate(savedInstanceState);
-	      new Tweet().execute("blaaaa");
+	      new Tweet().execute("huu");
 	   }
 	
 	
