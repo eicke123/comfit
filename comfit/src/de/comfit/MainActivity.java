@@ -1,6 +1,7 @@
 package de.comfit;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ public class MainActivity extends Activity
    {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
+//      startActivity(new Intent(this, MainActivity.class));
    }
 
    @Override
@@ -32,6 +34,8 @@ public class MainActivity extends Activity
       int id = item.getItemId();
       if (id == R.id.action_settings)
       {
+    	 Intent intent = new Intent(this, TweetActivity.class);
+    	 startActivity(intent);
          return true;
       }
       return super.onOptionsItemSelected(item);
