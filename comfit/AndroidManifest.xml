@@ -60,6 +60,7 @@
   			>
 		</service>
 		<uses-library android:name="com.google.android.maps"/>
+		<activity android:name="SportActivity"></activity>
     </application>
 
 </manifest>
