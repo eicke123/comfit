@@ -1,6 +1,5 @@
 package de.comfit;
 
-import twitter4j.Status;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -46,7 +45,7 @@ public class Tweet extends AsyncTask<String, Object, Object> {
 	    StatusUpdate statusUpdate = new StatusUpdate(message);
 
 	    try {
-			twitter4j.Status status = twitter.updateStatus(statusUpdate);
+			twitter.updateStatus(statusUpdate);
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

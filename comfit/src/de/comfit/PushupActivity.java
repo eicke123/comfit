@@ -1,26 +1,32 @@
 package de.comfit;
 
+import java.text.DecimalFormat;
+
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class PushupActivity extends Activity implements SensorEventListener {
+/**
+ * Pushup Activity
+ * This activity controls the training of pushups.
+ * You can either buzz the button with your nose or toggle to use the proximity sensor.
+ * Therefore you have to lay your phone down on the floor and do your pushups above it.
+ * @author hcohm
+ *
+ */
+public class PushupActivity extends Activity implements SensorEventListener, SportsactivityInterface {
 
 	/*
-	 * declare variables for pushup counter,
-	 * done pushups textView and
+	 * variables for pushup counter,
+	 * toggleButton, toggled value and
 	 * imageButton 
 	 */
 	private int pushUps;
@@ -28,12 +34,24 @@ public class PushupActivity extends Activity implements SensorEventListener {
 	private Button toggleButton;
 	private Boolean toggled;
 	
+	/*
+	 * TextViews
+	 */
 	private TextView buzz;
 	private TextView pushupCounterTextView;
 	private TextView proximityLabel;
 	
+	/*
+	 * Save burned calories in this class.
+	 * Will be reseted when the activity is reloaded.
+	 */
 	private double burnedCalories;
 	
+	/*
+	 * On create the proximity sensor is activated.
+	 * values and views are initialized.
+	 * 
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,6 +76,9 @@ public class PushupActivity extends Activity implements SensorEventListener {
 	    buzz.setGravity(Gravity.CENTER);
 	    proximityLabel.setGravity(Gravity.CENTER);
 	    
+	    /*
+	     * add listeners to the text views
+	     */
 	    addListenerOnToggleButton();
 
 	    addListenerOnImageButton();
@@ -75,9 +96,12 @@ public class PushupActivity extends Activity implements SensorEventListener {
 			@Override
 			public void onClick(View arg0) {
  
+				/*
+				 * update pushup counter and output label
+				 */
 				pushUps++;
 				
-			    pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps + "\n"+burnedCalories(70.0));
+        		setPushupCounterLabel();
 			}
  
 		});
@@ -91,8 +115,12 @@ public class PushupActivity extends Activity implements SensorEventListener {
  
 		toggleButton = (Button)findViewById(R.id.toggleButton);
  
+		/*
+		 * control two toggled states
+		 * - buzz button
+		 * - use of proximity sensor 
+		 */
 		toggleButton.setOnClickListener(new View.OnClickListener() {
- 
 			@Override
 			public void onClick(View arg0) {
  
@@ -105,7 +133,7 @@ public class PushupActivity extends Activity implements SensorEventListener {
 					imageButton.setVisibility(0);
 					
 					proximityLabel.setVisibility(4);
-					pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps + "\n"+burnedCalories(70.0));
+	        		setPushupCounterLabel();
 
 					buzz.setText("Buzz here");
 				}
@@ -117,7 +145,7 @@ public class PushupActivity extends Activity implements SensorEventListener {
 					imageButton.setVisibility(4);
 					
 					proximityLabel.setVisibility(0);
-					buzz.setText("Liegestütz-Counter: " + pushUps + "\n"+burnedCalories(70.0));
+	        		setPushupCounterLabel();
 				}
 			}
  
@@ -134,14 +162,25 @@ public class PushupActivity extends Activity implements SensorEventListener {
 	
 	/*
 	 * returns burnedCalories according to done pushups
+	 * 70% of own weight is pushed
+	 * 9.81m/s earth acceleration
+	 * 0.3m = 30cm distance from bottom to top
+	 * Joule / 4.1868 = Calories
+	 * calories = bottom to top
+	 * calories / 2 = top to bottom
 	 */
-	public double burnedCalories(double weight) {
+	public String burnedCalories(double weight) {
 		burnedCalories = ((weight * 0.7) * 9.81 * 0.3)/4.1868;
 		burnedCalories = burnedCalories / 1000;
 		burnedCalories = burnedCalories + burnedCalories/2;
-		return burnedCalories;
+		DecimalFormat df = new DecimalFormat("#0.000");
+		String burned = df.format(burnedCalories * pushUps);
+		return burned;
 	}
 
+	/*
+	 * needed values and methods for sensor management
+	 */
 	private SensorManager mSensorManager;
     private Sensor mSensor;
 
@@ -164,10 +203,23 @@ public class PushupActivity extends Activity implements SensorEventListener {
         if(value[0] > 1) {
         }
         else {
+        	/*
+        	 * update counter label only when proximity sensor is active in toggled state
+        	 */
         	if (toggled) {
         		pushUps++;
-        		buzz.setText("Liegestütz-Counter: " + pushUps + "\n"+burnedCalories(70.0) + " kcal");
+        		setPushupCounterLabel();
         	}
         }  
+    }
+    
+    /*
+     * Set pushup counter labels
+     */
+    private void setPushupCounterLabel() {
+    	if (toggled)
+    		buzz.setText("Liegestütz-Counter: " + pushUps + "\n" + burnedCalories(70.0) + " kcal");
+    	else
+    		pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps + "\n" + burnedCalories(70.0) + " kcal");
     }
 }
