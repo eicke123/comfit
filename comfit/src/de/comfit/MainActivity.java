@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends Activity
 {
@@ -14,7 +15,7 @@ public class MainActivity extends Activity
    {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
-//      startActivity(new Intent(this, MainActivity.class));
+      // startActivity(new Intent(this, MainActivity.class));
    }
 
    @Override
@@ -34,22 +35,28 @@ public class MainActivity extends Activity
       int id = item.getItemId();
       if (id == R.id.counter)
       {
-    	 Intent intent = new Intent(this, CounterActivity.class);
-    	 startActivity(intent);
+         Intent intent = new Intent(this, CounterActivity.class);
+         startActivity(intent);
          return true;
       }
       if (id == R.id.pushup)
       {
-       Intent intent = new Intent(this, PushupActivity.class);
-       startActivity(intent);
+         Intent intent = new Intent(this, PushupActivity.class);
+         startActivity(intent);
          return true;
       }
       if (id == R.id.tracker)
       {
-       Intent intent = new Intent(this, TrackerActivity.class);
-       startActivity(intent);
+         Intent intent = new Intent(this, TrackerActivity.class);
+         startActivity(intent);
          return true;
       }
       return super.onOptionsItemSelected(item);
+   }
+
+   public void onClickStartWorkout(View view)
+   {
+      Intent intent = new Intent(this, SportActivity.class);
+      startActivity(intent);
    }
 }
