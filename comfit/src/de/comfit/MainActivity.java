@@ -32,12 +32,22 @@ public class MainActivity extends Activity
       // automatically handle clicks on the Home/Up button, so long
       // as you specify a parent activity in AndroidManifest.xml.
       int id = item.getItemId();
-      if (id == R.id.action_settings)
+      if (id == R.id.counter)
       {
-//    	 Intent intent = new Intent(this, TweetActivity.class);
-    	 Intent intent = new Intent(this, PushupActivity.class);
-
+    	 Intent intent = new Intent(this, CounterActivity.class);
     	 startActivity(intent);
+         return true;
+      }
+      if (id == R.id.pushup)
+      {
+       Intent intent = new Intent(this, PushupActivity.class);
+       startActivity(intent);
+         return true;
+      }
+      if (id == R.id.tracker)
+      {
+       Intent intent = new Intent(this, TrackerActivity.class);
+       startActivity(intent);
          return true;
       }
       return super.onOptionsItemSelected(item);

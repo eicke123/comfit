@@ -12,4 +12,6 @@
     <string name="buzzLabel">Buzz here</string>
 
     <string name="service_name">Step Service</string>
+
+    <string name="counter">Counter</string>
 </resources>

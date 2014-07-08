@@ -9,7 +9,7 @@
     tools:context="de.comfit.MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textstepactiv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
@@ -18,13 +18,24 @@
         android:id="@+id/count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/textstepactiv"
+        android:layout_below="@+id/textstepactiv"
         android:layout_marginLeft="53dp"
         android:layout_marginTop="56dp"
-        android:ems="10" >
+        android:ems="10"
+        android:inputType="number" >
 
         <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/count"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:onClick="onClickStartWorkout"
+        android:text="start workout" />
 
 </RelativeLayout>
