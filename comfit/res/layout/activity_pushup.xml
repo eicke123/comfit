@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/imageButton1"
-        android:text="Toggle" />
+        android:text="@string/toggleButton" />
 
      <TextView
          android:id="@+id/textView4"
@@ -19,7 +19,7 @@
          android:layout_alignParentLeft="true"
          android:layout_alignTop="@+id/imageButton1"
          android:layout_marginTop="16dp"
-         android:text="Die Liegestütze werden gemessen, wenn Sie ihren Kopf dem Gerät annähern"
+         android:text= "@string/proxi"
          android:textAlignment="center"
          android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -30,6 +30,7 @@
          android:layout_alignParentBottom="true"
          android:layout_alignParentLeft="true"
          android:layout_marginBottom="28dp"
+         android:layout_centerHorizontal="true"
          android:src="@drawable/kreis" />
 
      <TextView
@@ -40,7 +41,7 @@
          android:layout_alignRight="@+id/toggleButton"
          android:layout_below="@+id/toggleButton"
          android:layout_marginTop="14dp"
-         android:text="initialText"
+         android:text="@string/pushupCounterLabel"
          android:textAlignment="center"
          android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -52,7 +53,7 @@
          android:layout_alignRight="@+id/imageButton1"
          android:layout_below="@+id/textView4"
          android:layout_marginTop="72dp"
-         android:text="Buzz here"
+         android:text="@string/buzzLabel"
          android:textAlignment="center"
          android:textAppearance="?android:attr/textAppearanceLarge" />
 

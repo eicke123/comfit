@@ -30,8 +30,9 @@ public class PushupActivity extends Activity implements SensorEventListener {
 	
 	private TextView buzz;
 	private TextView pushupCounterTextView;
-	//private TextView pushupCounterTextViewProximitySensor;
 	private TextView proximityLabel;
+	
+	private double burnedCalories;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,6 @@ public class PushupActivity extends Activity implements SensorEventListener {
 	    addListenerOnToggleButton();
 
 	    addListenerOnImageButton();
-
 	} 
 
 	/*
@@ -77,7 +77,7 @@ public class PushupActivity extends Activity implements SensorEventListener {
  
 				pushUps++;
 				
-			    pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps);
+			    pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps + "\n"+burnedCalories(70.0));
 			}
  
 		});
@@ -105,7 +105,7 @@ public class PushupActivity extends Activity implements SensorEventListener {
 					imageButton.setVisibility(0);
 					
 					proximityLabel.setVisibility(4);
-					pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps);
+					pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps + "\n"+burnedCalories(70.0));
 
 					buzz.setText("Buzz here");
 				}
@@ -117,7 +117,7 @@ public class PushupActivity extends Activity implements SensorEventListener {
 					imageButton.setVisibility(4);
 					
 					proximityLabel.setVisibility(0);
-					buzz.setText("Liegestütz-Counter: " + pushUps);
+					buzz.setText("Liegestütz-Counter: " + pushUps + "\n"+burnedCalories(70.0));
 				}
 			}
  
@@ -130,6 +130,16 @@ public class PushupActivity extends Activity implements SensorEventListener {
 	 */
 	public int getPushups() {
 		return pushUps;
+	}
+	
+	/*
+	 * returns burnedCalories according to done pushups
+	 */
+	public double burnedCalories(double weight) {
+		burnedCalories = ((weight * 0.7) * 9.81 * 0.3)/4.1868;
+		burnedCalories = burnedCalories / 1000;
+		burnedCalories = burnedCalories + burnedCalories/2;
+		return burnedCalories;
 	}
 
 	private SensorManager mSensorManager;
@@ -149,17 +159,14 @@ public class PushupActivity extends Activity implements SensorEventListener {
     }
 
     public void onSensorChanged(SensorEvent event) {
-        // TODO: implement your action here.
-    	
     	float[] value = event.values;
 
         if(value[0] > 1) {
-           
         }
         else {
         	if (toggled) {
         		pushUps++;
-        		pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps);
+        		buzz.setText("Liegestütz-Counter: " + pushUps + "\n"+burnedCalories(70.0) + " kcal");
         	}
         }  
     }
