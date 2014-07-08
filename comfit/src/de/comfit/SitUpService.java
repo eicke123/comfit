@@ -1,6 +1,6 @@
 package de.comfit;
 
-import de.comfit.sport.SitUpActiv;
+import de.comfit.sport.PushUpActiv;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ public class SitUpService extends Service implements SensorEventListener {
     private int anzahlSitUps = 0;
     
     //StepAktiv Objekt
-  	SitUpActiv obj=null;
+  	PushUpActiv obj=null;
   	//Anzahl der gemachten Schritte
   	int progress=0;
   	int sitUpsZuMachen;
@@ -35,7 +35,7 @@ public class SitUpService extends Service implements SensorEventListener {
     @Override
 	  public int onStartCommand(Intent intent, int flags, int startId) {
 	    //TODO do something useful
-		obj=(SitUpActiv)intent.getParcelableExtra("sportactiv");
+		obj=(PushUpActiv)intent.getParcelableExtra("sportactiv");
 		obj.start();
 		calculateProgress();
 	    return Service.START_NOT_STICKY;

@@ -9,7 +9,7 @@
     tools:context="de.comfit.MainActivity" >
 
     <TextView
-        android:id="@+id/textstepactiv"
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
@@ -18,8 +18,8 @@
         android:id="@+id/count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textstepactiv"
-        android:layout_below="@+id/textstepactiv"
+        android:layout_alignLeft="@+id/text"
+        android:layout_below="@+id/text"
         android:layout_marginLeft="53dp"
         android:layout_marginTop="56dp"
         android:ems="10"

@@ -1,12 +1,22 @@
 package de.comfit.sport;
 
-public class SitUpActiv extends SportActiv
+import android.content.Context;
+import android.content.Intent;
+import de.comfit.PushupActivity;
+
+public class PushUpActiv extends SportActiv
 {
 
+   public PushUpActiv(Context context)
+   {
+      super(context);
+      // TODO Auto-generated constructor stub
+   }
    @Override
    public void start()
    {
-      // TODO Auto-generated method stub
+      Intent intent = new Intent(context, PushupActivity.class);
+      context.startActivity(intent);
 
    }
 
