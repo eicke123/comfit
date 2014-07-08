@@ -7,5 +7,5 @@
 		android:id="@+id/map_view" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:state_enabled="false"
 		android:focusable="true" android:clickable="true"
-		android:apiKey="" />
+		android:apiKey="AIzaSyCKaS3yXMUZTvOIiJ_qRsV18eBnSnVrsWk" />
 </LinearLayout>
