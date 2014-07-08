@@ -5,15 +5,15 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="17"
         android:targetSdkVersion="21" />
 
     <!-- Permission - Internet Connect -->
     <uses-permission android:name="android.permission.INTERNET" />
-     
+
     <!-- Network State Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
- 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -29,20 +29,37 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="oauth" android:host="t4jsample"/>
+
+                <data
+                    android:host="t4jsample"
+                    android:scheme="oauth" />
             </intent-filter>
-            
         </activity>
-         <activity
+        <activity
             android:name=".TweetActivity"
             android:label="@string/app_name" >
-         </activity>
-         <activity
+        </activity>
+        <activity
             android:name=".CounterActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".PushupActivity"
+            android:label="@string/title_activity_pushup" >
+        </activity>
+         <activity
+            android:name=".TrackerActivity"
+            android:label="@string/app_name" >
          </activity>
-         <activity android:name="SportActivity"></activity>
+         <service
+  			android:name="StepService"
+  			android:label="@string/service_name"
+  			>
+		</service>
+		<uses-library android:name="com.google.android.maps"/>
     </application>
+
 </manifest>

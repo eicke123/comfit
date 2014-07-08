@@ -4,6 +4,12 @@
     <string name="app_name">comfit</string>
     <string name="hello_world">Hello world!!!</string>
     <string name="action_settings">Settings</string>
-    <string name="stepactivity">walk steps</string>
+    <string name="title_activity_pushup">Pushups</string>
+   
+    <string name="toggleButton">Toggle</string>
+    <string name="proxi">Die Liegestütze werden gemessen, wenn Sie sich dem Gerät annähern</string>
+    <string name="pushupCounterLabel">initialTextforPushupCounter</string>
+    <string name="buzzLabel">Buzz here</string>
 
+    <string name="service_name">Step Service</string>
 </resources>
