@@ -105,6 +105,8 @@ public class PushupActivity extends Activity implements SensorEventListener {
 					imageButton.setVisibility(0);
 					
 					proximityLabel.setVisibility(4);
+					pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps);
+
 					buzz.setText("Buzz here");
 				}
 				// buzz button active
@@ -116,10 +118,6 @@ public class PushupActivity extends Activity implements SensorEventListener {
 					
 					proximityLabel.setVisibility(0);
 					buzz.setText("Liegestütz-Counter: " + pushUps);
-					
-
-//			        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-//			        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 				}
 			}
  
@@ -155,12 +153,14 @@ public class PushupActivity extends Activity implements SensorEventListener {
     	
     	float[] value = event.values;
 
-
-        if(value[0] > 0) {
+        if(value[0] > 1) {
            
         }
         else {
-        	 pushUps++;
+        	if (toggled) {
+        		pushUps++;
+        		pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps);
+        	}
         }  
     }
 }
