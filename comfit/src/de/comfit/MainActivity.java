@@ -36,6 +36,7 @@ public class MainActivity extends Activity
       {
 //    	 Intent intent = new Intent(this, TweetActivity.class);
     	 Intent intent = new Intent(this, PushupActivity.class);
+
     	 startActivity(intent);
          return true;
       }
