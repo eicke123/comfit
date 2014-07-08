@@ -3,9 +3,12 @@
     tools:context="de.comfit.MainActivity" >
 
     <item
-        android:id="@+id/runningactiv"
+        android:id="@+id/counter"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:title="@string/counter">
+    </item>
+    <item android:id="@+id/pushup" android:title="pushup"></item>
+    <item android:id="@+id/tracker" android:title="tracker"></item>
 
 </menu>

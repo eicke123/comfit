@@ -1,6 +1,6 @@
 package de.comfit;
 
-import de.comfit.sport.StepActiv;
+import de.comfit.sport.RunningActiv;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -11,14 +11,14 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 
 /**
- * Zählt die Schritte und prüft ob eine übergebene Challenge erledigt wurde
+ * Zï¿½hlt die Schritte und prï¿½ft ob eine ï¿½bergebene Challenge erledigt wurde
  * @author Comtec
  *
  */
 public class StepService extends Service implements SensorEventListener{
 
 	//StepAktiv Objekt
-	StepActiv obj=null;
+	RunningActiv obj=null;
 	//SensorManager Objekt
 	SensorManager sensorManager;
 	
@@ -27,13 +27,13 @@ public class StepService extends Service implements SensorEventListener{
 	int progress=0;
 	int schritteZuMachen;
 	
-	//Variable die prüft ob eine Challenge erfolgreich beendet wurde
+	//Variable die prï¿½ft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone=true;
 	
 	  @Override
 	  public int onStartCommand(Intent intent, int flags, int startId) {
 	    //TODO do something useful
-		obj=(StepActiv)intent.getParcelableExtra("sportactiv");
+		obj=(RunningActiv)intent.getParcelableExtra("sportactiv");
 		obj.start();
 		init();
 		calculateProgress();
@@ -41,7 +41,7 @@ public class StepService extends Service implements SensorEventListener{
 	  }
 
 	/**
-	 * Berechnet den Fortschritt der übergebenen Challenge
+	 * Berechnet den Fortschritt der ï¿½bergebenen Challenge
 	 */
 	private void calculateProgress() {
 		while(challengeIsNotDone){
@@ -84,11 +84,11 @@ public class StepService extends Service implements SensorEventListener{
 	}
 	
 	//Getter & Setter
-	public StepActiv getObj() {
+	public RunningActiv getObj() {
 		return obj;
 	}
 
-	public void setObj(StepActiv obj) {
+	public void setObj(RunningActiv obj) {
 		this.obj = obj;
 	}
 	
