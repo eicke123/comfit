@@ -16,4 +16,5 @@ public class TrackerActivity extends MapActivity {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 }
