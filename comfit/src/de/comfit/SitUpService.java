@@ -1,7 +1,6 @@
 package de.comfit;
 
 import de.comfit.sport.SitUpActiv;
-import de.comfit.sport.StepActiv;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +22,7 @@ public class SitUpService extends Service implements SensorEventListener {
   	int progress=0;
   	int sitUpsZuMachen;
   	
-  	//Variable die prüft ob eine Challenge erfolgreich beendet wurde
+  	//Variable die prï¿½ft ob eine Challenge erfolgreich beendet wurde
   	boolean challengeIsNotDone=true;
   	
     @Override
@@ -65,7 +64,7 @@ public class SitUpService extends Service implements SensorEventListener {
     }
     
     /**
-	 * Berechnet den Fortschritt der übergebenen Challenge
+	 * Berechnet den Fortschritt der ï¿½bergebenen Challenge
 	 */
 	private void calculateProgress() {
 		while(challengeIsNotDone){
