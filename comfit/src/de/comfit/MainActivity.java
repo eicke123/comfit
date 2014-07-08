@@ -35,7 +35,7 @@ public class MainActivity extends Activity
       if (id == R.id.action_settings)
       {
 //    	 Intent intent = new Intent(this, TweetActivity.class);
-    	 Intent intent = new Intent(this, CounterActivity.class);
+    	 Intent intent = new Intent(this, PushupActivity.class);
     	 startActivity(intent);
          return true;
       }
