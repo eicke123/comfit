@@ -37,6 +37,9 @@ public class PushupActivity extends Activity implements SensorEventListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pushup);
+		
+		mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         
 		pushUps = 0;
 		toggled = false;
@@ -115,8 +118,8 @@ public class PushupActivity extends Activity implements SensorEventListener {
 					buzz.setText("Liegestütz-Counter: " + pushUps);
 					
 
-			        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-			        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+//			        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+//			        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 				}
 			}
  
