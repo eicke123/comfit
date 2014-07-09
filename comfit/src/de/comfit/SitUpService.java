@@ -17,13 +17,11 @@ public class SitUpService extends Service implements SensorEventListener {
 	private int updateOnlySecondOne = 0;
 	private int anzahlSitUps = 0;
 
-	// StepAktiv Objekt
-	PushUpActiv obj = null;
 	// Anzahl der gemachten Schritte
 	int progress = 0;
 	int sitUpsZuMachen = 100;
 
-	// Variable die prŸft ob eine Challenge erfolgreich beendet wurde
+	// Variable die prï¿½ft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone = true;
 
 	@Override
@@ -71,17 +69,14 @@ public class SitUpService extends Service implements SensorEventListener {
 	}
 
 	/**
-	 * Berechnet den Fortschritt der Ÿbergebenen Challenge
+	 * Berechnet den Fortschritt der ï¿½bergebenen Challenge
 	 */
 	private void calculateProgress() {
 		while (challengeIsNotDone) {
 			progress = (int) (anzahlSitUps / (sitUpsZuMachen / 100));
 			if (anzahlSitUps > (sitUpsZuMachen / 100)) {
-				obj.updateProgress(progress);
 				if (anzahlSitUps >= sitUpsZuMachen) {
 					challengeIsNotDone = false;
-					obj.updateProgress(progress);
-					obj.complete();
 				}
 			}
 		}

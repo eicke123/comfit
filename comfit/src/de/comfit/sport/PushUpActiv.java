@@ -1,23 +1,26 @@
 package de.comfit.sport;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import de.comfit.PushupActivity;
 
 public class PushUpActiv extends SportActiv {
 
 	public static double weight;
 
-	public PushUpActiv(Context context) {
+	public PushUpActiv(Activity context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void start() {
+	public void start(View source) {
 		Intent intent = new Intent(context, PushupActivity.class);
 		intent.putExtra("count", 20);
 		context.startActivity(intent);
+	    this.source = source;
 	}
 
 	@Override
@@ -26,11 +29,6 @@ public class PushUpActiv extends SportActiv {
 
 	}
 
-	@Override
-	public void complete() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public double getCalStep() {

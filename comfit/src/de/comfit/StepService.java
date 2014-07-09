@@ -12,15 +12,13 @@ import android.widget.Toast;
 import de.comfit.sport.RunningActiv;
 
 /**
- * ZŠhlt die Schritte und prŸft ob eine Ÿbergebene Challenge erledigt wurde
+ * Zï¿½hlt die Schritte und prï¿½ft ob eine ï¿½bergebene Challenge erledigt wurde
  * 
  * @author Comtec
  * 
  */
 public class StepService extends Service implements SensorEventListener {
 
-	// StepAktiv Objekt
-	RunningActiv obj = null;
 	// SensorManager Objekt
 	SensorManager sensorManager;
 
@@ -29,7 +27,7 @@ public class StepService extends Service implements SensorEventListener {
 	int progress = 0;
 	int schritteZuMachen = 100;
 
-	// Variable die prŸft ob eine Challenge erfolgreich beendet wurde
+	// Variable die prï¿½ft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone = true;
 
 	@Override
@@ -46,17 +44,14 @@ public class StepService extends Service implements SensorEventListener {
 	}
 
 	/**
-	 * Berechnet den Fortschritt der Ÿbergebenen Challenge
+	 * Berechnet den Fortschritt der ï¿½bergebenen Challenge
 	 */
 	private void calculateProgress() {
 		while (challengeIsNotDone) {
 			progress = (int) (steps / (schritteZuMachen / 100));
 			if (steps > (schritteZuMachen / 100)) {
-				obj.updateProgress(progress);
 				if (steps >= schritteZuMachen) {
 					challengeIsNotDone = false;
-					obj.updateProgress(progress);
-					obj.complete();
 				}
 			}
 		}
@@ -102,13 +97,5 @@ public class StepService extends Service implements SensorEventListener {
 
 	}
 
-	// Getter & Setter
-	public RunningActiv getObj() {
-		return obj;
-	}
-
-	public void setObj(RunningActiv obj) {
-		this.obj = obj;
-	}
 
 }

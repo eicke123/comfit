@@ -1,30 +1,26 @@
 package de.comfit.sport;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 
 public class RunningActiv extends SportActiv {
 	public static final int CAL_PER_STEP = 1;
 	private int steps;
 	private int percent;
 
-	public RunningActiv(Context context) {
+	public RunningActiv(Activity context) {
 		super(context);
 	}
 
 	@Override
-	public void start() {
-		System.out.println("start");
-	}
+	public void start(View source) {
+	   this.source = source;
+ 	}
 
 	@Override
 	public void updateProgress(int percent) {
 		this.setPercent(percent);
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void complete() {
 		// TODO Auto-generated method stub
 
 	}
