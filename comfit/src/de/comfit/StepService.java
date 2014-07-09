@@ -35,7 +35,7 @@ public class StepService extends Service implements SensorEventListener {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO do something useful
-		obj = (RunningActiv) intent.getParcelableExtra("sportactiv");
+		//obj = (RunningActiv) intent.getParcelableExtra("sportactiv");
 		// obj=(RunningActiv)intent.getParcelableExtra("sportactiv");
 		// obj.start();
 		init();

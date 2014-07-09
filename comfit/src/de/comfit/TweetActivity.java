@@ -8,6 +8,8 @@ public class TweetActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		new Tweet().execute("huu");
+		
+		String tweetMessage = getIntent().getStringExtra("message");
+		new Tweet().execute(tweetMessage);
 	}
 }

@@ -1,7 +1,5 @@
 package de.comfit.sport;
 
-import java.text.DecimalFormat;
-
 import android.content.Context;
 import android.content.Intent;
 import de.comfit.PushupActivity;
@@ -9,7 +7,7 @@ import de.comfit.PushupActivity;
 public class PushUpActiv extends SportActiv {
 
 	public static double weight;
-	
+
 	public PushUpActiv(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
@@ -37,11 +35,12 @@ public class PushUpActiv extends SportActiv {
 	@Override
 	public double getCalStep() {
 		// TODO Auto-generated method stub
-		
+
 		double burnedCaloriesPerPushup = ((weight * 0.7) * 9.81 * 0.3) / 4.1868;
 		burnedCaloriesPerPushup = burnedCaloriesPerPushup / 1000;
-		burnedCaloriesPerPushup = burnedCaloriesPerPushup + burnedCaloriesPerPushup / 2;
-		
+		burnedCaloriesPerPushup = burnedCaloriesPerPushup
+				+ burnedCaloriesPerPushup / 2;
+
 		return burnedCaloriesPerPushup;
 	}
 

@@ -36,10 +36,12 @@ public class SitUpService extends Service implements SensorEventListener {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO do something useful
-		obj = (PushUpActiv) intent.getParcelableExtra("sportactiv");
+		//obj = (PushUpActiv) intent.getParcelableExtra("sportactiv");
 		// obj=(PushUpActiv)intent.getParcelableExtra("sportactiv");
 		// obj.start();
-
+		
+		init();
+		
 		calculateProgress();
 		Log.d("de.comfit", "start");
 		return Service.START_NOT_STICKY;
@@ -63,13 +65,13 @@ public class SitUpService extends Service implements SensorEventListener {
 			updateOnlySecondOne = 0;
 			anzahlSitUps = anzahlSitUps + 1;
 			Toast.makeText(getApplicationContext(),
-					"anzahlSitzups: " + anzahlSitUps, Toast.LENGTH_LONG).show();
+					"anzahlSitups: " + anzahlSitUps, Toast.LENGTH_LONG).show();
 		}
 
 	}
 
 	/**
-	 * Berechnet den Fortschritt der ï¿½bergebenen Challenge
+	 * Berechnet den Fortschritt der Ÿbergebenen Challenge
 	 */
 	private void calculateProgress() {
 		while (challengeIsNotDone) {
@@ -98,5 +100,16 @@ public class SitUpService extends Service implements SensorEventListener {
 
 	private SensorManager mSensorManager;
 	private Sensor mSensor;
+	
+	private void init() {
+		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+		mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+		mSensorManager.registerListener(this, mSensor,
+				SensorManager.SENSOR_DELAY_NORMAL);
+	}
+	
+	public void exit() {
+		mSensorManager.unregisterListener(this);
+	}
 }

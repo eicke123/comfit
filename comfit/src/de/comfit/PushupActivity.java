@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import de.comfit.sport.RunningActiv;
 
 /**
  * Pushup Activity This activity controls the training of pushups. You can
@@ -235,8 +234,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 	}
 
 	/*
-	 * encapsulated method to increase done pushups
-	 * check for progress
+	 * encapsulated method to increase done pushups check for progress
 	 */
 	private void increaseDonePushups() {
 		pushUps++;
