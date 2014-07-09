@@ -8,8 +8,10 @@ import de.comfit.sport.RunningActiv;
 import de.comfit.sport.SportActiv;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,5 +142,12 @@ public class SportActivity extends Activity
       return sportActivs;
 
    }
+   
+   @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+	   
+	   Log.d("de.comfit", data.toString());
+	}
 
 }

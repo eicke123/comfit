@@ -40,23 +40,16 @@ public class MainActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.counter) {
-//			Intent intent = new Intent(this, CounterActivity.class);
-//			startActivity(intent);
-			// su service
-			SitUpService s = new SitUpService();
 			// use this to start and trigger a service
 			Intent i;
 			i= new Intent(this, StepService.class);
 //			// potentially add data to the intent
 			i.putExtra("sportactiv", "string");
-//			
-			Log.d("de.comfit", "test");
 			startService(i);
 			return true;
 		}
 		else if (id == R.id.pushup) {
 			Intent intent = new Intent(this, PushupActivity.class);
-			intent.putExtra("toDo", "100");
 			startActivity(intent);
 			return true;
 		}
@@ -64,19 +57,7 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, TrackerActivity.class);
 			startActivity(intent);
 			return true;
-		}
-		
-		// su service
-		SitUpService s = new SitUpService();
-		// use this to start and trigger a service
-		Intent i;
-		i= new Intent(this, SitUpService.class);
-//		// potentially add data to the intent
-		//i.putExtra("sportactiv", "string");
-//		
-		Log.d("de.comfit", "test");
-		startService(i);
-		
+		}		
 		
 		return super.onOptionsItemSelected(item);
 	}

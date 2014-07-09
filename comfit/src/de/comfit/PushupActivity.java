@@ -70,9 +70,7 @@ public class PushupActivity extends Activity implements SensorEventListener, Spo
 		mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         
-        
-        obj=(RunningActiv)getIntent().getParcelableExtra("sportactiv");
-        pushupToDo = getIntent().getIntExtra("toDo", 1);
+        pushupToDo = getIntent().getIntExtra("count", 1);
 
         pushUps = 0;
 		progress = 0;
@@ -240,15 +238,12 @@ public class PushupActivity extends Activity implements SensorEventListener, Spo
     
     private void increaseDonePushups() {
     	pushUps++;
-		progress=(int)((pushUps/pushupToDo)/100);
-		Toast.makeText(this, "prog: "+progress, Toast.LENGTH_SHORT).show();
-		if(pushUps>(pushupToDo/100)){
-			obj.updateProgress(progress);
-			if(pushUps>=pushupToDo){
-				challengeIsNotDone=false;
-				obj.updateProgress(progress);
-				obj.complete();
-			}
+		progress=(pushUps*100/pushupToDo);
+		
+		if (progress == 100)
+		{
+			finish();
+			Toast.makeText(this, "You have finished this activity", Toast.LENGTH_LONG).show();
 		}
     }
     
