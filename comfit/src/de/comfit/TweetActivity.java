@@ -6,9 +6,8 @@ import android.os.Bundle;
 public class TweetActivity extends Activity {
 
 	@Override
-	   protected void onCreate(Bundle savedInstanceState)
-	   {
-	      super.onCreate(savedInstanceState);
-	      new Tweet().execute("huu");
-	   }
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		new Tweet().execute("huu");
+	}
 }
