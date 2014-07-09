@@ -10,5 +10,6 @@
     </item>
     <item android:id="@+id/pushup" android:title="pushup"></item>
     <item android:id="@+id/tracker" android:title="tracker"></item>
+    <item android:id="@+id/personal_data" android:title="Personal data"></item>
 
 </menu>

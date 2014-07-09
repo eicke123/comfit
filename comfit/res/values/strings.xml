@@ -11,13 +11,18 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_list_view">ListViewActivity</string>
     <string name="title_activity_pushup">Pushups</string>
-   
     <string name="toggleButton">Toggle</string>
     <string name="proxi">Die Liegestütze werden gemessen, wenn Sie sich dem Gerät annähern</string>
     <string name="pushupCounterLabel">initialTextforPushupCounter</string>
     <string name="buzzLabel">Buzz here</string>
-
     <string name="service_name">Step Service</string>
-
     <string name="counter">Counter</string>
+    <string name="title_activity_personal_data">PersonalDataActivity</string>
+    <string name="preference_file_key">de.comfit.preference_file_key</string>
+    <string name="name">name</string>
+    <string name="weight">weight</string>
+    <string name="height">height</string>
+    <string name="welcome">Welcome</string>
+    <string name="title_activity_graph">GraphActivity</string>
+
 </resources>
