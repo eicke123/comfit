@@ -59,8 +59,11 @@
          </activity>
          <service
   			android:name="StepService"
-  			android:label="@string/service_name"
-  			>
+  			android:label="@string/service_name">
+		</service>
+		<service
+  			android:name="SitUpService"
+  			android:label="@string/service_name">
 		</service>
 		<uses-library android:name="com.google.android.maps"/>
 		<activity android:name="SportActivity"></activity>

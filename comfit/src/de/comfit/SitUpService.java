@@ -9,6 +9,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
+import android.util.Log;
+import android.widget.Toast;
 
 public class SitUpService extends Service implements SensorEventListener {
     private boolean unten = false;
@@ -20,9 +22,9 @@ public class SitUpService extends Service implements SensorEventListener {
   	PushUpActiv obj=null;
   	//Anzahl der gemachten Schritte
   	int progress=0;
-  	int sitUpsZuMachen;
+  	int sitUpsZuMachen = 100;
   	
-  	//Variable die prï¿½ft ob eine Challenge erfolgreich beendet wurde
+  	//Variable die prŸft ob eine Challenge erfolgreich beendet wurde
   	boolean challengeIsNotDone=true;
   	
     @Override
@@ -36,7 +38,11 @@ public class SitUpService extends Service implements SensorEventListener {
 	  public int onStartCommand(Intent intent, int flags, int startId) {
 	    //TODO do something useful
 		obj=(PushUpActiv)intent.getParcelableExtra("sportactiv");
+//		obj=(PushUpActiv)intent.getParcelableExtra("sportactiv");
+//		obj.start();
+
 		calculateProgress();
+		Log.d("de.comfit", "start");
 	    return Service.START_NOT_STICKY;
 	  }
 
@@ -58,6 +64,7 @@ public class SitUpService extends Service implements SensorEventListener {
             if(updateOnlySecondOne == 2){
                 updateOnlySecondOne = 0;
                 anzahlSitUps  = anzahlSitUps +1;
+                Toast.makeText(getApplicationContext(), "anzahlSitzups: "+anzahlSitUps, Toast.LENGTH_LONG).show();
             }
 
     }
@@ -88,4 +95,9 @@ public class SitUpService extends Service implements SensorEventListener {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	private SensorManager mSensorManager;
+    private Sensor mSensor;
+
+
 }

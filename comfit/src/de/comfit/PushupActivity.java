@@ -2,17 +2,22 @@ package de.comfit;
 
 import java.text.DecimalFormat;
 
+import de.comfit.sport.RunningActiv;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Pushup Activity
@@ -33,6 +38,11 @@ public class PushupActivity extends Activity implements SensorEventListener, Spo
 	private ImageButton imageButton;
 	private Button toggleButton;
 	private Boolean toggled;
+	
+	private RunningActiv obj=null;
+	private int pushupToDo;
+	private boolean challengeIsNotDone=true;
+	private int progress;
 	
 	/*
 	 * TextViews
@@ -60,7 +70,12 @@ public class PushupActivity extends Activity implements SensorEventListener, Spo
 		mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         
-		pushUps = 0;
+        
+        obj=(RunningActiv)getIntent().getParcelableExtra("sportactiv");
+        pushupToDo = getIntent().getIntExtra("toDo", 1);
+
+        pushUps = 0;
+		progress = 0;
 		toggled = false;
 		
 	    pushupCounterTextView = (TextView)findViewById(R.id.textView1);
@@ -99,7 +114,7 @@ public class PushupActivity extends Activity implements SensorEventListener, Spo
 				/*
 				 * update pushup counter and output label
 				 */
-				pushUps++;
+        		increaseDonePushups();
 				
         		setPushupCounterLabel();
 			}
@@ -207,7 +222,7 @@ public class PushupActivity extends Activity implements SensorEventListener, Spo
         	 * update counter label only when proximity sensor is active in toggled state
         	 */
         	if (toggled) {
-        		pushUps++;
+        		increaseDonePushups();
         		setPushupCounterLabel();
         	}
         }  
@@ -221,5 +236,29 @@ public class PushupActivity extends Activity implements SensorEventListener, Spo
     		buzz.setText("LiegestŸtz-Counter: " + pushUps + "\n" + burnedCalories(70.0) + " kcal");
     	else
     		pushupCounterTextView.setText("LiegestŸtz-Counter: " + pushUps + "\n" + burnedCalories(70.0) + " kcal");
+    }
+    
+    private void increaseDonePushups() {
+    	pushUps++;
+		progress=(int)((pushUps/pushupToDo)/100);
+		Toast.makeText(this, "prog: "+progress, Toast.LENGTH_SHORT).show();
+		if(pushUps>(pushupToDo/100)){
+			obj.updateProgress(progress);
+			if(pushUps>=pushupToDo){
+				challengeIsNotDone=false;
+				obj.updateProgress(progress);
+				obj.complete();
+			}
+		}
+    }
+    
+    @Override
+    public void finish() {
+    	// TODO Auto-generated method stub
+    	Intent i = new Intent();
+    	i.putExtra("progress", progress);
+    	setResult(0, i);
+    	super.finish();
+    	
     }
 }

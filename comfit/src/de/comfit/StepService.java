@@ -9,9 +9,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
- * Zï¿½hlt die Schritte und prï¿½ft ob eine ï¿½bergebene Challenge erledigt wurde
+ * ZŠhlt die Schritte und prŸft ob eine Ÿbergebene Challenge erledigt wurde
  * @author Comtec
  *
  */
@@ -25,22 +27,26 @@ public class StepService extends Service implements SensorEventListener{
 	//Anzahl der gemachten Schritte
 	int steps=0;
 	int progress=0;
-	int schritteZuMachen;
+	int schritteZuMachen=100;
 	
-	//Variable die prï¿½ft ob eine Challenge erfolgreich beendet wurde
+	//Variable die prŸft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone=true;
 	
 	  @Override
 	  public int onStartCommand(Intent intent, int flags, int startId) {
 	    //TODO do something useful
 		obj=(RunningActiv)intent.getParcelableExtra("sportactiv");
+//		obj=(RunningActiv)intent.getParcelableExtra("sportactiv");
+//		obj.start();
 		init();
-		calculateProgress();
-	    return Service.START_NOT_STICKY;
+		//calculateProgress();
+		Log.d("de.comfit", "start");
+
+	    return Service.START_STICKY;
 	  }
 
 	/**
-	 * Berechnet den Fortschritt der ï¿½bergebenen Challenge
+	 * Berechnet den Fortschritt der Ÿbergebenen Challenge
 	 */
 	private void calculateProgress() {
 		while(challengeIsNotDone){
@@ -61,8 +67,18 @@ public class StepService extends Service implements SensorEventListener{
 	 * Initialisiert den SensorManager
 	 */
 	private void init() {
-		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        
+        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
 	}
+	
+	private SensorManager mSensorManager;
+    private Sensor mSensor;
+
+    public void exit() {
+        mSensorManager.unregisterListener(this);
+    }
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -74,6 +90,8 @@ public class StepService extends Service implements SensorEventListener{
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
 		steps=(int)Math.round(event.values[0]);
+		Toast.makeText(getApplicationContext(), "Steps: "+steps, Toast.LENGTH_SHORT).show();
+		
 	}
 
 	@Override
