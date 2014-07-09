@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.View;
 import de.comfit.PushupActivity;
 import de.comfit.StepService;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -56,7 +55,7 @@ public class RunningActiv extends SportActiv {
 	}
 
 	@Override
-	public void complete() {
+	public void start(View source) {
 		// TODO Auto-generated method stub
 		
 	}
