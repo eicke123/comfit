@@ -256,7 +256,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 	public void finish() {
 		// TODO Auto-generated method stub
 		Intent i = new Intent();
-		i.putExtra("progress", progress);
+		i.putExtra("progress", pushUps);
 		setResult(0, i);
 		super.finish();
 
