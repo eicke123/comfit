@@ -12,6 +12,7 @@ public abstract class SportActiv
 public abstract void start();
 public abstract void updateProgress(int percent);
 public abstract void complete();
+public abstract int getCalStep();
 
 
 }

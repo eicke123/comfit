@@ -16,8 +16,8 @@ public class PushUpActiv extends SportActiv
    public void start()
    {
       Intent intent = new Intent(context, PushupActivity.class);
+      intent.putExtra("count", 20);
       context.startActivity(intent);
-
    }
 
    @Override
@@ -32,6 +32,12 @@ public class PushUpActiv extends SportActiv
    {
       // TODO Auto-generated method stub
 
+   }
+   @Override
+   public int getCalStep()
+   {
+      // TODO Auto-generated method stub
+      return 300;
    }
 
 }

@@ -36,7 +36,6 @@ public class SitUpService extends Service implements SensorEventListener {
 	  public int onStartCommand(Intent intent, int flags, int startId) {
 	    //TODO do something useful
 		obj=(PushUpActiv)intent.getParcelableExtra("sportactiv");
-		obj.start();
 		calculateProgress();
 	    return Service.START_NOT_STICKY;
 	  }

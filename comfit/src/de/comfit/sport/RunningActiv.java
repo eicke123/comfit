@@ -8,10 +8,9 @@ public class RunningActiv extends SportActiv
    private int steps;
    private int percent;
    
-    public RunningActiv(int cal,Context context)
+    public RunningActiv(Context context)
    {
        super(context);
-      this.setSteps(cal * CAL_PER_STEP);
    }
    
    @Override
@@ -53,6 +52,13 @@ public class RunningActiv extends SportActiv
    public void setPercent(int percent)
    {
       this.percent = percent;
+   }
+
+   @Override
+   public int getCalStep()
+   {
+      // TODO Auto-generated method stub
+      return 500;
    }
 
 }

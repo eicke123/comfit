@@ -34,7 +34,6 @@ public class StepService extends Service implements SensorEventListener{
 	  public int onStartCommand(Intent intent, int flags, int startId) {
 	    //TODO do something useful
 		obj=(RunningActiv)intent.getParcelableExtra("sportactiv");
-		obj.start();
 		init();
 		calculateProgress();
 	    return Service.START_NOT_STICKY;
