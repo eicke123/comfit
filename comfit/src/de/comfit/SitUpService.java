@@ -42,7 +42,7 @@ public class SitUpService extends Service implements SensorEventListener {
 		
 		calculateProgress();
 		Log.d("de.comfit", "start");
-		return Service.START_NOT_STICKY;
+		return Service.START_STICKY;
 	}
 
 	private void beschleunigung(SensorEvent event) {

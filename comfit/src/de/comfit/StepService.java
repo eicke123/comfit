@@ -36,6 +36,8 @@ public class StepService extends Service implements SensorEventListener {
 		//obj = (RunningActiv) intent.getParcelableExtra("sportactiv");
 		// obj=(RunningActiv)intent.getParcelableExtra("sportactiv");
 		// obj.start();
+		schritteZuMachen = intent.getIntExtra("schritte", 1);
+		
 		init();
 		// calculateProgress();
 		Log.d("de.comfit", "start");
@@ -55,7 +57,6 @@ public class StepService extends Service implements SensorEventListener {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -88,7 +89,7 @@ public class StepService extends Service implements SensorEventListener {
 		steps = (int) Math.round(event.values[0]);
 		Toast.makeText(getApplicationContext(), "Steps: " + steps,
 				Toast.LENGTH_SHORT).show();
-
+		progress = (int) (steps*100 / schritteZuMachen);
 	}
 
 	@Override
