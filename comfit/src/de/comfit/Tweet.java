@@ -14,37 +14,37 @@ public class Tweet extends AsyncTask<String, Object, Object> {
 		sendMessageToTwitter(arg0[0]);
 		return null;
 	}
-	
-	
-	public void sendMessageToTwitter(String message){
-		//Your Twitter App's Consumer Key
-	    String consumerKey = "gcyUYUX10zQqYvoQKbi4xq7ys";
 
-	    //Your Twitter App's Consumer Secret
-	    String consumerSecret = "rlIrtN8lbwur0wdVenhXoiq5MZdJkwiaLSTQhsnpI6UdTbsWGb";
+	public void sendMessageToTwitter(String message) {
+		// Your Twitter App's Consumer Key
+		String consumerKey = "gcyUYUX10zQqYvoQKbi4xq7ys";
 
-	    //Your Twitter Access Token
-	    String accessToken = "2609196686-GBA7rYGm8WPIIxn8HYUIz1RfF1fqFWJglLUubUY";
+		// Your Twitter App's Consumer Secret
+		String consumerSecret = "rlIrtN8lbwur0wdVenhXoiq5MZdJkwiaLSTQhsnpI6UdTbsWGb";
 
-	    //Your Twitter Access Token Secret
-	    String accessTokenSecret = "owr3VXye2cv73SKwAJXACOeXiYfulK4NYcX9LKjsQmJiC";
+		// Your Twitter Access Token
+		String accessToken = "2609196686-GBA7rYGm8WPIIxn8HYUIz1RfF1fqFWJglLUubUY";
 
-	    //Instantiate a re-usable and thread-safe factory
-	    TwitterFactory twitterFactory = new TwitterFactory();
+		// Your Twitter Access Token Secret
+		String accessTokenSecret = "owr3VXye2cv73SKwAJXACOeXiYfulK4NYcX9LKjsQmJiC";
 
-	    //Instantiate a new Twitter instance
-	    Twitter twitter = twitterFactory.getInstance();
+		// Instantiate a re-usable and thread-safe factory
+		TwitterFactory twitterFactory = new TwitterFactory();
 
-	    //setup OAuth Consumer Credentials
-	    twitter.setOAuthConsumer(consumerKey, consumerSecret);
+		// Instantiate a new Twitter instance
+		Twitter twitter = twitterFactory.getInstance();
 
-	    //setup OAuth Access Token
-	    twitter.setOAuthAccessToken(new AccessToken(accessToken, accessTokenSecret));
+		// setup OAuth Consumer Credentials
+		twitter.setOAuthConsumer(consumerKey, consumerSecret);
 
-	    //Instantiate and initialize a new twitter status update
-	    StatusUpdate statusUpdate = new StatusUpdate(message);
+		// setup OAuth Access Token
+		twitter.setOAuthAccessToken(new AccessToken(accessToken,
+				accessTokenSecret));
 
-	    try {
+		// Instantiate and initialize a new twitter status update
+		StatusUpdate statusUpdate = new StatusUpdate(message);
+
+		try {
 			twitter.updateStatus(statusUpdate);
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block

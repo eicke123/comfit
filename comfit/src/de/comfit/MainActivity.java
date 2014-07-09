@@ -56,21 +56,22 @@ public class MainActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.counter) {
-			Intent intent = new Intent(this, CounterActivity.class);
-			startActivity(intent);
+			// use this to start and trigger a service
+			Intent i;
+			i = new Intent(this, StepService.class);
+			// // potentially add data to the intent
+			i.putExtra("sportactiv", "string");
+			startService(i);
 			return true;
-		}
-		if (id == R.id.pushup) {
+		} else if (id == R.id.pushup) {
 			Intent intent = new Intent(this, PushupActivity.class);
 			startActivity(intent);
 			return true;
-		}
-		if (id == R.id.tracker) {
+		} else if (id == R.id.tracker) {
 			Intent intent = new Intent(this, TrackerActivity.class);
 			startActivity(intent);
 			return true;
-		}
-		if (id == R.id.personal_data) {
+		}else if (id == R.id.personal_data) {
 			Intent intent = new Intent(this, PersonalDataActivity.class);
 			startActivity(intent);
 			return true;

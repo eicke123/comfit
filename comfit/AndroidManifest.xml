@@ -13,7 +13,10 @@
 
     <!-- Network State Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+	
+	<!-- GPS Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -50,20 +53,20 @@
             android:name=".PushupActivity"
             android:label="@string/title_activity_pushup" >
         </activity>
-        <activity
+         <activity
             android:name=".TrackerActivity"
             android:label="@string/app_name" >
-        </activity>
-
-        <service
-            android:name=".StepService"
-            android:label="@string/service_name" >
-        </service>
-
-        <uses-library android:name="com.google.android.maps" />
-
-        <activity android:name=".SportActivity" >
-        </activity>
+         </activity>
+         <service
+  			android:name="StepService"
+  			android:label="@string/service_name">
+		</service>
+		<service
+  			android:name="SitUpService"
+  			android:label="@string/service_name">
+		</service>
+		<uses-library android:name="com.google.android.maps"/>
+		<activity android:name="SportActivity"></activity>
         <activity
             android:name=".PersonalDataActivity"
             android:label="@string/title_activity_personal_data" >
