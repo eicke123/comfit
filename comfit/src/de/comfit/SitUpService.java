@@ -29,19 +29,6 @@ public class SitUpService extends Service implements SensorEventListener {
 		if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 			beschleunigung(sensorEvent);
 		}
-		
-		
-		progress = (int) ((anzahlSitUps)*100 / sitUpsZuMachen);
-		
-		Intent intent = new Intent();
-		intent.setAction("de.comfit.sport.SitUpActiv");
-		intent.putExtra("doneSitUps", (anzahlSitUps));
-		sendBroadcast(intent);
-		
-		if (progress >= 100) {
-			exit();
-			stopSelf();
-		}
 	}
 
 	@Override
@@ -77,6 +64,17 @@ public class SitUpService extends Service implements SensorEventListener {
 			anzahlSitUps = anzahlSitUps + 1;
 			Toast.makeText(getApplicationContext(),
 					"anzahlSitups: " + anzahlSitUps, Toast.LENGTH_LONG).show();
+		}
+		progress = (int) ((anzahlSitUps)*100 / sitUpsZuMachen);
+		
+		Intent intent = new Intent();
+		intent.setAction("de.comfit.sport.SitUpActiv");
+		intent.putExtra("doneSitUps", (anzahlSitUps));
+		sendBroadcast(intent);
+		
+		if (progress >= 100) {
+			exit();
+			stopSelf();
 		}
 
 	}
