@@ -3,10 +3,6 @@
     <color name="done">#65ff6c</color>
     <color name="pressed">#32a6ff</color>
     <color name="standart">#ffffff</color>
-<<<<<<< 5bd3435bd76c0a96070e5c9d70389e8d5003ee5b
     <color name="disabled">#848484</color>
     
-=======
-     <color name="disabled">#848484</color>
->>>>>>> 1a808a5fd522e748530e135018558138198017b9
 </resources>
