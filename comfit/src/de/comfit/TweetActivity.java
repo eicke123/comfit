@@ -11,5 +11,6 @@ public class TweetActivity extends Activity {
 		
 		String tweetMessage = getIntent().getStringExtra("message");
 		new Tweet().execute(tweetMessage);
+		finish();
 	}
 }

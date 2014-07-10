@@ -274,7 +274,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 					+ burnedCalories(70.0) + " kcal");
 		else
 			pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps
-					+ "\n" + burnedCalories(70.0) + " kcal");
+					+ "/"+pushupToDo+"\n" + burnedCalories(70.0) + " kcal");
 	}
 
 	/*
@@ -298,7 +298,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 	public void finish() {
 		// TODO Auto-generated method stub
 		Intent i = new Intent();
-		i.putExtra("progress", pushUps);
+		i.putExtra("pushups", pushUps);
 		setResult(0, i);
 		super.finish();
 
