@@ -115,7 +115,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 				increaseDonePushups();
 
 				setPushupCounterLabel();
-				createShareDialog();
+				
 			}
 
 		});
@@ -283,6 +283,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 
 		if (progress == 100) {
 			finish();
+			createShareDialog();
 			Toast.makeText(this, "You have finished this activity",
 					Toast.LENGTH_LONG).show();
 		}
