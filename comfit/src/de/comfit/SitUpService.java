@@ -7,8 +7,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 
 public class SitUpService extends Service implements SensorEventListener {
 	private boolean unten = false;
@@ -19,7 +17,7 @@ public class SitUpService extends Service implements SensorEventListener {
 	// Anzahl der gemachten Schritte
 	int progress = 0;
 	int sitUpsZuMachen;
-	
+
 	// Variable die prŸft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone = true;
 
@@ -35,6 +33,7 @@ public class SitUpService extends Service implements SensorEventListener {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		if (intent != null) {
+			sourceHash = intent.getIntExtra("hashcode", 0);
 			sitUpsZuMachen = intent.getIntExtra("situps", 1);
 			init();
 		}
@@ -60,21 +59,20 @@ public class SitUpService extends Service implements SensorEventListener {
 			updateOnlySecondOne = 0;
 			anzahlSitUps = anzahlSitUps + 1;
 		}
-		progress = (int) ((anzahlSitUps)*100 / sitUpsZuMachen);
-		
+		progress = (int) ((anzahlSitUps) * 100 / sitUpsZuMachen);
+
 		Intent intent = new Intent();
 		intent.setAction("de.comfit.sport.SitUpActiv");
 		intent.putExtra("doneSitUps", anzahlSitUps);
 		intent.putExtra("hashcode", sourceHash);
 		sendBroadcast(intent);
-		
+
 		if (progress >= 100) {
 			exit();
 			stopSelf();
 		}
 
 	}
-
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int i) {
@@ -88,7 +86,7 @@ public class SitUpService extends Service implements SensorEventListener {
 
 	private SensorManager mSensorManager;
 	private Sensor mSensor;
-	
+
 	private void init() {
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -96,7 +94,7 @@ public class SitUpService extends Service implements SensorEventListener {
 		mSensorManager.registerListener(this, mSensor,
 				SensorManager.SENSOR_DELAY_NORMAL);
 	}
-	
+
 	public void exit() {
 		mSensorManager.unregisterListener(this);
 	}

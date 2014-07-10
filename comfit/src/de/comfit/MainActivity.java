@@ -8,11 +8,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import de.comfit.history.WorkoutData;
-import de.comfit.history.WorkoutHistory;
-import de.comfit.history.WorkoutItem;
-import de.comfit.util.StableArrayAdapter;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +19,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import de.comfit.history.WorkoutData;
+import de.comfit.history.WorkoutHistory;
+import de.comfit.history.WorkoutItem;
+import de.comfit.util.StableArrayAdapter;
 
 public class MainActivity extends Activity {
 
@@ -171,8 +170,9 @@ public class MainActivity extends Activity {
 	 * Saves workout data provided by SportActivity to file
 	 */
 	private void saveWorkoutData() {
-		WorkoutHistory history = new WorkoutHistory(); // TODO: data has to be retrieved
-												// from SportActivity
+		WorkoutHistory history = new WorkoutHistory(); // TODO: data has to be
+														// retrieved
+		// from SportActivity
 		// TODO: delete test data
 		WorkoutData workoutData = new WorkoutData();
 		WorkoutItem workoutItem = new WorkoutItem();
@@ -180,15 +180,17 @@ public class MainActivity extends Activity {
 		workoutItem.setCaloriesGoal(20);
 		workoutItem.setDurationInSeconds(100);
 		workoutItem.setWorkoutType("Pushups");
-		workoutData.setActivityTypes(new WorkoutItem[]{workoutItem});
+		workoutData.setActivityTypes(new WorkoutItem[] { workoutItem });
 		workoutData.setId("TestID");
 		workoutData.setCaloriesGoalInTotal(1000);
 		workoutData.setCaloriesInTotal(1000);
-		history.setData(new WorkoutData[]{workoutData});
-		
+		history.setData(new WorkoutData[] { workoutData });
+
 		if (history != null) {
 			try {
-				FileOutputStream fos = openFileOutput(getString(R.string.history_file_name), Context.MODE_PRIVATE);
+				FileOutputStream fos = openFileOutput(
+						getString(R.string.history_file_name),
+						Context.MODE_PRIVATE);
 				ObjectOutputStream os = new ObjectOutputStream(fos);
 				history.writeToFile(os);
 				os.close();

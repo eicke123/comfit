@@ -1,6 +1,5 @@
 package de.comfit.sport;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -11,6 +10,8 @@ public class PushUpActiv extends SportActiv {
 
 	public static double weight;
 	private int pushups;
+	
+	private int source;
 
 	public PushUpActiv(SportActivity context) {
 		super(context);
@@ -19,18 +20,16 @@ public class PushUpActiv extends SportActiv {
 
 	@Override
 	public void start(View source) {
+		this.source = this.hashCode();
 		Intent intent = new Intent(context, PushupActivity.class);
-		intent.putExtra("count", 20);
+		intent.putExtra("count", pushups);
+		intent.putExtra("hashcode", this.source);
 		context.startActivity(intent);
-	    this.setSource(source);
+		this.setSource(source);
 	}
-
-
 
 	@Override
 	public double getCalStep() {
-		// TODO Auto-generated method stub
-
 		double burnedCaloriesPerPushup = ((weight * 0.7) * 9.81 * 0.3) / 4.1868;
 		burnedCaloriesPerPushup = burnedCaloriesPerPushup / 1000;
 		burnedCaloriesPerPushup = burnedCaloriesPerPushup
@@ -41,11 +40,13 @@ public class PushUpActiv extends SportActiv {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		SportActiv activ = super.getSportActivByHash(intent.getIntExtra("hashcode",0));
+		SportActiv activ = super.getSportActivByHash(intent.getIntExtra(
+				"hashcode", 0));
 		int pushupsDone = intent.getIntExtra("pushups", 1);
-		activ.updateProgress(pushupsDone*100/((PushUpActiv)activ).getPushups(),0,this);
+		activ.updateProgress(
+				pushupsDone * 100 / ((PushUpActiv) activ).getPushups(), 0, activ);
 	}
-	
+
 	public int getPushups() {
 		return pushups;
 	}
