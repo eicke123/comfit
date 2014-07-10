@@ -24,30 +24,8 @@ import android.widget.TextView;
 
 public class SportActivity extends Activity
 {
-   private ArrayList<SportActiv> generateActivitys;
+   private ArrayList<SportActiv> sportActivs;
 
-   private final class ClickSportActiv implements View.OnClickListener
-   {
-      private final SportActiv sportActiv;
-
-      private ClickSportActiv(SportActiv sportActiv)
-      {
-         this.sportActiv = sportActiv;
-      }
-
-      @Override
-      public void onClick(View v)
-      {
-         v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
-         if (sportActiv instanceof RunningActiv)
-        	 ((RunningActiv)sportActiv).setSteps(5);
-         else if (sportActiv instanceof SitUpActiv)
-        	 ((SitUpActiv)sportActiv).setSitups(5);
-         else if (sportActiv instanceof PushUpActiv)
-        	 ((PushUpActiv)sportActiv).setPushups(5);
-         sportActiv.start(v);
-      }
-   }
 
    @Override
    protected void onCreate(Bundle savedInstanceState)
@@ -55,8 +33,8 @@ public class SportActivity extends Activity
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activitys);
 
-      generateActivitys = generateActivitys(5000);
-      addViewsForActivitys(generateActivitys);
+      sportActivs = generateActivitys(5000);
+      addViewsForActivitys(sportActivs);
    }
 
    private void addViewsForActivitys(ArrayList<SportActiv> generateActivitys)
@@ -69,23 +47,11 @@ public class SportActivity extends Activity
          sportActiv.setIndex(activitys.getChildCount());
          if (sportActiv instanceof RunningActiv)
          {
-            RunningActiv run = (RunningActiv) sportActiv;
-            final LinearLayout row = (LinearLayout) li.inflate(R.layout.stepasctivity, null);
-
-            TextView text = (TextView) row.findViewById(R.id.text);
-            text.setText("Now run " + 100 + "steps");
-            registerListensers(activitys, run, row);
-            activitys.addView(row);
+            createRunningActivity(activitys, li, sportActiv);
          }
          else if (sportActiv instanceof PushUpActiv)
          {
-            PushUpActiv run = (PushUpActiv) sportActiv;
-            final LinearLayout row = (LinearLayout) li.inflate(R.layout.pushupactivity, null);
-
-            TextView text = (TextView) row.findViewById(R.id.text);
-            text.setText("Make pushups");
-            registerListensers(activitys, run, row);
-            activitys.addView(row);
+            createPushupActivity(activitys, li, sportActiv);
          }
          else if (sportActiv instanceof SitUpActiv)
          {
@@ -95,10 +61,35 @@ public class SportActivity extends Activity
             TextView text = (TextView) row.findViewById(R.id.text);
             text.setText("Make situps");
             registerListensers(activitys, run, row);
+            sportActiv.setSource(row);
             activitys.addView(row);
          }
 
       }
+   }
+
+   private void createPushupActivity(final LinearLayout activitys, LayoutInflater li, final SportActiv sportActiv)
+   {
+      PushUpActiv run = (PushUpActiv) sportActiv;
+      final LinearLayout row = (LinearLayout) li.inflate(R.layout.pushupactivity, null);
+
+      TextView text = (TextView) row.findViewById(R.id.text);
+      text.setText("Make pushups");
+      registerListensers(activitys, run, row);
+      sportActiv.setSource(row);
+      activitys.addView(row);
+   }
+
+   private void createRunningActivity(final LinearLayout activitys, LayoutInflater li, final SportActiv sportActiv)
+   {
+      RunningActiv run = (RunningActiv) sportActiv;
+      final LinearLayout row = (LinearLayout) li.inflate(R.layout.stepasctivity, null);
+
+      TextView text = (TextView) row.findViewById(R.id.text);
+      text.setText("Now run " + 100 + "steps");
+      registerListensers(activitys, run, row);
+      sportActiv.setSource(row);
+      activitys.addView(row);
    }
 
    private void registerListensers(final LinearLayout activitys, SportActiv run, final LinearLayout row)
@@ -130,7 +121,7 @@ public class SportActivity extends Activity
             SportActiv ac;
             try
             {
-               ac = (SportActiv) activ.getConstructor(Activity.class).newInstance(this);
+               ac = (SportActiv) activ.getConstructor(SportActivity.class).newInstance(this);
                cal -= ac.getCalStep();
                sportActivs.add(ac);
             }
@@ -165,9 +156,19 @@ public class SportActivity extends Activity
    @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		int progress = data.getExtras().getInt("progress");
-		SportActiv sportActiv = generateActivitys.get(requestCode);
+		SportActiv sportActiv = sportActivs.get(requestCode);
 		sportActiv.updateProgress(progress,0,null);
 		
 	}
+
+   public ArrayList<SportActiv> getSportActivs()
+   {
+      return sportActivs;
+   }
+
+   public void setSportActivs(ArrayList<SportActiv> sportActivs)
+   {
+      this.sportActivs = sportActivs;
+   }
 
 }

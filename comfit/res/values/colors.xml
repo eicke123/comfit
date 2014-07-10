@@ -3,5 +3,6 @@
     <color name="done">#65ff6c</color>
     <color name="pressed">#32a6ff</color>
     <color name="standart">#ffffff</color>
+    <color name="disabled">#848484</color>
     
 </resources>

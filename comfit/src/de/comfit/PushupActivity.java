@@ -138,8 +138,8 @@ public class PushupActivity extends Activity implements SensorEventListener,
 						Intent i= new Intent(getApplicationContext(), TweetActivity.class);
 						i.putExtra("message", "Yuhu ... ich habe "+pushUps+" PushUp(s) gemacht ;)");
 						startActivity(i);
-						dialog.dismiss();
 						finish();
+						dialog.dismiss();
 					}
 				  })
 				.setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -274,7 +274,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 					+ burnedCalories(70.0) + " kcal");
 		else
 			pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps
-					+ "/"+pushupToDo+"\n" + burnedCalories(70.0) + " kcal");
+					+ "\n" + burnedCalories(70.0) + " kcal");
 	}
 
 	/*
@@ -285,7 +285,6 @@ public class PushupActivity extends Activity implements SensorEventListener,
 		progress = (pushUps * 100 / pushupToDo);
 
 		if (progress == 100) {
-//			finish();
 			createShareDialog();
 			Toast.makeText(this, "You have finished this activity",
 					Toast.LENGTH_LONG).show();
@@ -299,7 +298,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 	public void finish() {
 		// TODO Auto-generated method stub
 		Intent i = new Intent();
-		i.putExtra("pushups", pushUps);
+		i.putExtra("progress", pushUps);
 		setResult(0, i);
 		super.finish();
 

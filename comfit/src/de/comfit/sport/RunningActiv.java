@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import de.comfit.SportActivity;
 import de.comfit.StepService;
 import android.content.Intent;
 
@@ -14,7 +15,7 @@ public class RunningActiv extends SportActiv {
 	private int steps;
 	private int percent;
 
-	public RunningActiv(Activity context) {
+	public RunningActiv(SportActivity context) {
 		super(context);
 	}
 	
