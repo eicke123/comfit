@@ -2,11 +2,12 @@ package de.comfit.sport;
 
 import de.comfit.R;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.view.View;
 import android.widget.ProgressBar;
 
-public abstract class SportActiv
+public abstract class SportActiv extends BroadcastReceiver
 {
    protected Activity context;
    protected int index;
@@ -16,6 +17,10 @@ public abstract class SportActiv
    public SportActiv(Activity context)
    {
       this.context = context;
+   }
+   
+   public SportActiv() {
+	   
    }
 
    public void updateProgress(int percent)

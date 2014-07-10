@@ -42,4 +42,10 @@ public class PushUpActiv extends SportActiv {
 		return burnedCaloriesPerPushup;
 	}
 
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -17,6 +17,8 @@
 	<!-- GPS Permissions -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -75,6 +77,15 @@
             android:name=".GraphActivity"
             android:label="@string/title_activity_graph" >
         </activity>
+        <receiver android:name=".sport.RunningActiv" >
+            <intent-filter>
+                <action android:name="de.comfit.sport.RunningActiv" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".PushUpActiv" >
+        </receiver>
+        <receiver android:name=".SportActiv" >
+        </receiver>
     </application>
 
 </manifest>

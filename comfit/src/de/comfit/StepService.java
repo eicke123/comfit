@@ -12,7 +12,7 @@ import android.widget.Toast;
 import de.comfit.sport.RunningActiv;
 
 /**
- * Zï¿½hlt die Schritte und prï¿½ft ob eine ï¿½bergebene Challenge erledigt wurde
+ * Zï¿½hlt die Schritte und prŸft ob eine ï¿½bergebene Challenge erledigt wurde
  * 
  * @author Comtec
  * 
@@ -25,38 +25,24 @@ public class StepService extends Service implements SensorEventListener {
 	// Anzahl der gemachten Schritte
 	int steps = 0;
 	int progress = 0;
-	int schritteZuMachen = 100;
+	int schritteZuMachen;
+	int stepsCachedBySensor = -1;
+	
+	Intent i;
 
-	// Variable die prï¿½ft ob eine Challenge erfolgreich beendet wurde
+	// Variable die prŸft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone = true;
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO do something useful
-		//obj = (RunningActiv) intent.getParcelableExtra("sportactiv");
-		// obj=(RunningActiv)intent.getParcelableExtra("sportactiv");
-		// obj.start();
 		schritteZuMachen = intent.getIntExtra("schritte", 1);
 		
 		init();
-		// calculateProgress();
+		
 		Log.d("de.comfit", "start");
 
 		return Service.START_STICKY;
-	}
-
-	/**
-	 * Berechnet den Fortschritt der ï¿½bergebenen Challenge
-	 */
-	private void calculateProgress() {
-		while (challengeIsNotDone) {
-			progress = (int) (steps / (schritteZuMachen / 100));
-			if (steps > (schritteZuMachen / 100)) {
-				if (steps >= schritteZuMachen) {
-					challengeIsNotDone = false;
-				}
-			}
-		}
 	}
 
 	/**
@@ -86,10 +72,21 @@ public class StepService extends Service implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
+		if (stepsCachedBySensor == -1)
+			stepsCachedBySensor = (int) Math.round(event.values[0]);
 		steps = (int) Math.round(event.values[0]);
-		Toast.makeText(getApplicationContext(), "Steps: " + steps,
-				Toast.LENGTH_SHORT).show();
-		progress = (int) (steps*100 / schritteZuMachen);
+
+		progress = (int) ((steps-stepsCachedBySensor)*100 / schritteZuMachen);
+		
+		Intent intent = new Intent();
+		intent.setAction("de.comfit.sport.RunningActiv");
+		intent.putExtra("doneSteps", (steps-stepsCachedBySensor));
+		sendBroadcast(intent);
+		
+		if (progress >= 100) {
+			exit();
+			stopSelf();
+		}
 	}
 
 	@Override
@@ -97,6 +94,4 @@ public class StepService extends Service implements SensorEventListener {
 		// TODO Auto-generated method stub
 
 	}
-
-
 }

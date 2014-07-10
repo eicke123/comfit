@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.16"
-            android:text="Weight" />
+            android:text="Weight (kg)" />
 
         <EditText
             android:id="@+id/EditTextWeight"
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.23"
-            android:text="Size" />
+            android:text="Size (cm)" />
 
         <EditText
             android:id="@+id/EditTextHeight"
