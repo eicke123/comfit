@@ -19,9 +19,11 @@ public class SitUpService extends Service implements SensorEventListener {
 	// Anzahl der gemachten Schritte
 	int progress = 0;
 	int sitUpsZuMachen;
-
+	
 	// Variable die prŸft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone = true;
+
+	private int sourceHash;
 
 	@Override
 	public void onSensorChanged(SensorEvent sensorEvent) {
@@ -32,8 +34,10 @@ public class SitUpService extends Service implements SensorEventListener {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		sitUpsZuMachen = intent.getIntExtra("situps", 1);
-		init();
+		if (intent != null) {
+			sitUpsZuMachen = intent.getIntExtra("situps", 1);
+			init();
+		}
 
 		return Service.START_STICKY;
 	}
@@ -55,14 +59,13 @@ public class SitUpService extends Service implements SensorEventListener {
 		if (updateOnlySecondOne == 2) {
 			updateOnlySecondOne = 0;
 			anzahlSitUps = anzahlSitUps + 1;
-			Toast.makeText(getApplicationContext(),
-					"anzahlSitups: " + anzahlSitUps, Toast.LENGTH_LONG).show();
 		}
 		progress = (int) ((anzahlSitUps)*100 / sitUpsZuMachen);
 		
 		Intent intent = new Intent();
 		intent.setAction("de.comfit.sport.SitUpActiv");
 		intent.putExtra("doneSitUps", anzahlSitUps);
+		intent.putExtra("hashcode", sourceHash);
 		sendBroadcast(intent);
 		
 		if (progress >= 100) {

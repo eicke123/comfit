@@ -33,7 +33,6 @@ public abstract class SportActiv extends BroadcastReceiver
    {
       this.progess = percent;
       Log.d("de.comfit", "update: "+percent);
-      System.out.println(hashCode());
       ProgressBar p = (ProgressBar) getSource().findViewById(R.id.stepactivprogress);
       p.setProgress(progess);
       getSource().setBackgroundColor(getSource().getResources().getColor(R.color.done));
