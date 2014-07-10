@@ -53,6 +53,8 @@ public class RunningActiv extends SportActiv {
 	@Override
 	public void start(View source) {
 		// TODO Auto-generated method stub
+		this.source = source;
+		
 		setSteps(20);
 		start();
 	}

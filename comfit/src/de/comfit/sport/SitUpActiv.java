@@ -45,6 +45,8 @@ public class SitUpActiv extends SportActiv {
 	@Override
 	public void start(View source) {
 		// TODO Auto-generated method stub
+		this.source = source;
+		
 		setSitups(20);
 		start();
 	}
