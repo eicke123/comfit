@@ -16,11 +16,9 @@ public class RunningActiv extends SportActiv {
 
 	public RunningActiv(Activity context) {
 		super(context);
-		steps = 20;
 	}
 	
 	public RunningActiv() {
-		steps = 20;
 	}
 	
 	public void start() {		
@@ -59,7 +57,7 @@ public class RunningActiv extends SportActiv {
 		// TODO Auto-generated method stub
 		this.setSource(source);
 		
-		setSteps(20);
+		setSteps(5);
 		start();
 	}
 
@@ -68,10 +66,8 @@ public class RunningActiv extends SportActiv {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		SportActiv activ = super.getSportActivByHash(intent.getIntExtra("hashcode",0));
-		System.out.println(activ.hashCode());
 		int stepsDone = intent.getIntExtra("doneSteps", 1);
-		//Toast.makeText(context, "Steps: " + stepsDone, Toast.LENGTH_SHORT).show();
-		activ.updateProgress(stepsDone*100/steps);
+		activ.updateProgress(stepsDone*100/((RunningActiv)activ).getSteps());
 	}
 
 }

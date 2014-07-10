@@ -14,17 +14,16 @@ public class SitUpActiv extends SportActiv {
 
 	public SitUpActiv(Activity context) {
 		super(context);
-		situps = 20;
 	}
 	
 	public SitUpActiv() {
-		situps = 20;
 	}
 	
 	private void start() {		
 		Intent intent = new Intent(context, SitUpService.class);
 		intent.putExtra("situps", situps);
-	    context.startService(intent);
+		intent.putExtra("hashcode", this.hashCode());
+		context.startService(intent);
 	}
 
 	public int getSitups() {
@@ -47,7 +46,7 @@ public class SitUpActiv extends SportActiv {
 		// TODO Auto-generated method stub
 		this.setSource(source);
 		
-		setSitups(20);
+		setSitups(5);
 		start();
 	}
 
@@ -55,9 +54,9 @@ public class SitUpActiv extends SportActiv {
 	// TODO call right updateProgress  Method and update progressbar
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		SportActiv activ = super.getSportActivByHash(intent.getIntExtra("hashcode",0));
 		int situpsDone = intent.getIntExtra("doneSitUps", 1);
-		//Toast.makeText(context, "Steps: " + stepsDone, Toast.LENGTH_SHORT).show();
-		updateProgress(situpsDone*100/situps);
+		activ.updateProgress(situpsDone*100/situps);
 	}
 
 }

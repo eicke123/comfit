@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 import de.comfit.sport.RunningActiv;
+import de.comfit.sport.SportActiv;
 
 /**
  * Zï¿½hlt die Schritte und prŸft ob eine ï¿½bergebene Challenge erledigt wurde
@@ -86,7 +87,6 @@ public class StepService extends Service implements SensorEventListener {
 		intent.setAction("de.comfit.sport.RunningActiv");
 		intent.putExtra("doneSteps", (steps-stepsCachedBySensor));
 		intent.putExtra("hashcode", sourceHash);
-		System.out.println(sourceHash);
 		sendBroadcast(intent);
 		
 		if (progress >= 100) {
@@ -96,6 +96,7 @@ public class StepService extends Service implements SensorEventListener {
 
 	private void createShareDialog() {
 		// TODO Auto-generated method stub
+		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				this);
  

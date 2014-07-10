@@ -39,6 +39,10 @@ public class SportActivity extends Activity
       public void onClick(View v)
       {
          v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+         if (sportActiv instanceof RunningActiv)
+        	 ((RunningActiv)sportActiv).setSteps(5);
+         else if (sportActiv instanceof SitUpActiv)
+        	 ((SitUpActiv)sportActiv).setSitups(5);
          sportActiv.start(v);
       }
    }
