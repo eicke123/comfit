@@ -76,7 +76,7 @@
             android:text="Size" />
 
         <EditText
-            android:id="@+id/EditTextSize"
+            android:id="@+id/EditTextHeight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

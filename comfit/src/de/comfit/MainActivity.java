@@ -3,7 +3,6 @@ package de.comfit;
 import java.util.ArrayList;
 import de.comfit.util.StableArrayAdapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -23,23 +22,12 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	}
-	
-	public void onResume(){
+
+	public void onResume() {
 		super.onResume();
 		setWelcomeMessage();
 		createListView();
-	}
-
-	private void setWelcomeMessage() {
-		final TextView textView = (TextView) findViewById(R.id.textView2);
-		SharedPreferences sharedPref = getSharedPreferences(
-				getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-		String name = sharedPref.getString(getString(R.string.name), null);
-		String welcome = getString(R.string.welcome);
-		if(name != null){
-			welcome += ", " + name;
-		}
-		textView.setText(welcome);
+		// TODO: save workout data to file if received object is not null
 	}
 
 	@Override
@@ -71,7 +59,7 @@ public class MainActivity extends Activity {
 			Intent intent = new Intent(this, TrackerActivity.class);
 			startActivity(intent);
 			return true;
-		}else if (id == R.id.personal_data) {
+		} else if (id == R.id.personal_data) {
 			Intent intent = new Intent(this, PersonalDataActivity.class);
 			startActivity(intent);
 			return true;
@@ -79,22 +67,35 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/*
+	 * Called when start button was clicked
+	 */
 	public void onClickStartWorkout(View view) {
 		Intent intent = new Intent(this, SportActivity.class);
 		startActivity(intent);
 	}
 
 	/*
-	 * Called when start button was clicked
+	 * Shows a welcome message with the name provided in personal data window
 	 */
-	public void startWorkoutRandomizer(View view) {
-		// TODO change class to workout randomizer
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
+	private void setWelcomeMessage() {
+		final TextView textView = (TextView) findViewById(R.id.textView2);
+		SharedPreferences sharedPref = getSharedPreferences(
+				getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+		String name = sharedPref.getString(getString(R.string.name), null);
+		String welcome = getString(R.string.welcome);
+		if (name != null) {
+			welcome += ", " + name;
+		}
+		textView.setText(welcome);
 	}
 
+	/*
+	 * Creates a list view which shows the workouts saved in the history file
+	 */
 	private void createListView() {
 		final ListView listview = (ListView) findViewById(R.id.list1);
+		// TODO: read workout history data from file
 		String[] values = new String[] { "History1", "History2", "History3",
 				"History4" };
 
@@ -114,15 +115,6 @@ public class MainActivity extends Activity {
 					int position, long id) {
 				startActivity(intent);
 				final String item = (String) parent.getItemAtPosition(position);
-				view.animate().setDuration(50).withEndAction(new Runnable() {
-					@Override
-					public void run() {
-						// TODO: open graph for item
-						// list.remove(item);
-						// adapter.notifyDataSetChanged();
-						// view.setAlpha(1);						
-					}
-				});
 			}
 
 		});
