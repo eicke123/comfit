@@ -138,8 +138,8 @@ public class PushupActivity extends Activity implements SensorEventListener,
 						Intent i= new Intent(getApplicationContext(), TweetActivity.class);
 						i.putExtra("message", "Yuhu ... ich habe "+pushUps+" PushUp(s) gemacht ;)");
 						startActivity(i);
-						finish();
 						dialog.dismiss();
+						finish();
 					}
 				  })
 				.setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -285,6 +285,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 		progress = (pushUps * 100 / pushupToDo);
 
 		if (progress == 100) {
+//			finish();
 			createShareDialog();
 			Toast.makeText(this, "You have finished this activity",
 					Toast.LENGTH_LONG).show();
