@@ -24,5 +24,6 @@
     <string name="height">height</string>
     <string name="welcome">Welcome</string>
     <string name="title_activity_graph">GraphActivity</string>
+    <string name="history_file_name">history</string>
 
 </resources>

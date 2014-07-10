@@ -1,6 +1,16 @@
 package de.comfit;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
+import de.comfit.history.WorkoutData;
+import de.comfit.history.WorkoutHistory;
+import de.comfit.history.WorkoutItem;
 import de.comfit.util.StableArrayAdapter;
 
 import android.app.Activity;
@@ -27,7 +37,7 @@ public class MainActivity extends Activity {
 		super.onResume();
 		setWelcomeMessage();
 		createListView();
-		// TODO: save workout data to file if received object is not null
+		saveWorkoutData();
 	}
 
 	@Override
@@ -95,28 +105,96 @@ public class MainActivity extends Activity {
 	 */
 	private void createListView() {
 		final ListView listview = (ListView) findViewById(R.id.list1);
-		// TODO: read workout history data from file
-		String[] values = new String[] { "History1", "History2", "History3",
-				"History4" };
+		// Load data from file and show every item in list view
+		WorkoutHistory history = loadWorkoutData();
+		if (history != null) {
+			WorkoutData[] data = history.getData();
 
-		final ArrayList<String> list = new ArrayList<String>();
-		for (int i = 0; i < values.length; ++i) {
-			list.add(values[i]);
-		}
-		final StableArrayAdapter adapter = new StableArrayAdapter(this,
-				android.R.layout.simple_list_item_1, list);
-		listview.setAdapter(adapter);
-
-		final Intent intent = new Intent(this, GraphActivity.class);
-
-		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, final View view,
-					int position, long id) {
-				startActivity(intent);
-				final String item = (String) parent.getItemAtPosition(position);
+			// TODO: use workout history data from file instead of dummy data
+			String[] values = new String[data.length];
+			for (int i = 0; i < data.length; i++) {
+				values[i] = String.valueOf(data[i].getId());
 			}
 
-		});
+			final ArrayList<String> list = new ArrayList<String>();
+			for (int i = 0; i < values.length; ++i) {
+				list.add(values[i]);
+			}
+			final StableArrayAdapter adapter = new StableArrayAdapter(this,
+					android.R.layout.simple_list_item_1, list);
+			listview.setAdapter(adapter);
+
+			final Intent intent = new Intent(this, GraphActivity.class);
+
+			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+				public void onItemClick(AdapterView<?> parent, final View view,
+						int position, long id) {
+					startActivity(intent);
+					final String item = (String) parent
+							.getItemAtPosition(position);
+				}
+
+			});
+		}
+	}
+
+	/*
+	 * Load workout data from history file
+	 */
+	private WorkoutHistory loadWorkoutData() {
+		WorkoutHistory history = null;
+		try {
+			FileInputStream fin = new FileInputStream(
+					getString(R.string.history_file_name));
+			ObjectInputStream ois = new ObjectInputStream(fin);
+			history = (WorkoutHistory) ois.readObject();
+			ois.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return history;
+	}
+
+	/*
+	 * Saves workout data provided by SportActivity to file
+	 */
+	private void saveWorkoutData() {
+		WorkoutHistory history = new WorkoutHistory(); // TODO: data has to be retrieved
+												// from SportActivity
+		// TODO: delete test data
+		WorkoutData workoutData = new WorkoutData();
+		WorkoutItem workoutItem = new WorkoutItem();
+		workoutItem.setCalories(10);
+		workoutItem.setCaloriesGoal(20);
+		workoutItem.setDurationInSeconds(100);
+		workoutItem.setWorkoutType("Pushups");
+		workoutData.setActivityTypes(new WorkoutItem[]{workoutItem});
+		workoutData.setId("TestID");
+		workoutData.setCaloriesGoalInTotal(1000);
+		workoutData.setCaloriesInTotal(1000);
+		history.setData(new WorkoutData[]{workoutData});
+		
+		if (history != null) {
+			try {
+				FileOutputStream fos = openFileOutput(getString(R.string.history_file_name), Context.MODE_PRIVATE);
+				ObjectOutputStream os = new ObjectOutputStream(fos);
+				history.writeToFile(os);
+				os.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
