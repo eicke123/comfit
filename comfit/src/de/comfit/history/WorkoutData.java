@@ -1,11 +1,14 @@
 package de.comfit.history;
 
-public class WorkoutData {
+import java.io.Serializable;
+
+public class WorkoutData implements Serializable {
 
 	private WorkoutItem[] workoutItems;
-	private String id;
+	private String label;
 	private int caloriesInTotal;
 	private int caloriesGoalInTotal;
+	private int durationInSeconds;
 	
 	public WorkoutItem[] getActivityTypes() {
 		return workoutItems;
@@ -14,10 +17,10 @@ public class WorkoutData {
 		this.workoutItems = activityTypes;
 	}
 	public String getId() {
-		return id;
+		return label;
 	}
 	public void setId(String id) {
-		this.id = id;
+		this.label = id;
 	}
 	public int getCaloriesInTotal() {
 		return caloriesInTotal;
@@ -30,5 +33,11 @@ public class WorkoutData {
 	}
 	public void setCaloriesGoalInTotal(int caloriesGoalInTotal) {
 		this.caloriesGoalInTotal = caloriesGoalInTotal;
+	}
+	public int getDurationInSeconds() {
+		return durationInSeconds;
+	}
+	public void setDurationInSeconds(int durationInSeconds) {
+		this.durationInSeconds = durationInSeconds;
 	}
 }

@@ -1,16 +1,18 @@
 package de.comfit.history;
 
-public /*abstract*/ class WorkoutItem {
-	private String workoutType;
+import java.io.Serializable;
+
+public /*abstract*/ class WorkoutItem implements Serializable {
+	private String label;
 	private long durationInSeconds;
 	private int calories;
 	private int caloriesGoal;
 	
 	public String getWorkoutType() {
-		return workoutType;
+		return label;
 	}
 	public void setWorkoutType(String workoutType) {
-		this.workoutType = workoutType;
+		this.label = workoutType;
 	}
 	public long getDurationInSeconds() {
 		return durationInSeconds;

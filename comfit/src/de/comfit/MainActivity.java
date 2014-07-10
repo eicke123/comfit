@@ -106,14 +106,18 @@ public class MainActivity extends Activity {
 	private void createListView() {
 		final ListView listview = (ListView) findViewById(R.id.list1);
 		// Load data from file and show every item in list view
-		WorkoutHistory history = loadWorkoutData();
-		if (history != null) {
-			WorkoutData[] data = history.getData();
-
+		WorkoutData[] data = loadWorkoutData();
+		if (data != null) {
 			// TODO: use workout history data from file instead of dummy data
 			String[] values = new String[data.length];
 			for (int i = 0; i < data.length; i++) {
-				values[i] = String.valueOf(data[i].getId());
+				String line = "Workout id: ";
+				line += String.valueOf(data[i].getId());
+				line += ", Workout calorie goal: ";
+				line += data[i].getCaloriesGoalInTotal();
+				line += ", Workout calories: ";
+				line += data[i].getCaloriesInTotal();
+				values[i] = line;
 			}
 
 			final ArrayList<String> list = new ArrayList<String>();
@@ -124,15 +128,16 @@ public class MainActivity extends Activity {
 					android.R.layout.simple_list_item_1, list);
 			listview.setAdapter(adapter);
 
-			final Intent intent = new Intent(this, GraphActivity.class);
+			final Intent intent = new Intent(this, WorkItemsActivity.class);
 
 			listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> parent, final View view,
 						int position, long id) {
-					startActivity(intent);
 					final String item = (String) parent
 							.getItemAtPosition(position);
+					intent.putExtra("position", position);
+					startActivity(intent);
 				}
 
 			});
@@ -142,13 +147,12 @@ public class MainActivity extends Activity {
 	/*
 	 * Load workout data from history file
 	 */
-	private WorkoutHistory loadWorkoutData() {
-		WorkoutHistory history = null;
+	private WorkoutData[] loadWorkoutData() {
+		WorkoutData[] data = null;
 		try {
-			FileInputStream fin = new FileInputStream(
-					getString(R.string.history_file_name));
+			FileInputStream fin = openFileInput(getString(R.string.history_file_name));
 			ObjectInputStream ois = new ObjectInputStream(fin);
-			history = (WorkoutHistory) ois.readObject();
+			data = (WorkoutData[]) ois.readObject();
 			ois.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -160,7 +164,7 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return history;
+		return data;
 	}
 
 	/*

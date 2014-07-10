@@ -12,7 +12,7 @@ public class WorkoutHistory implements Serializable {
 	private WorkoutData[] data;
 
 	public void writeToFile(ObjectOutputStream out) throws IOException {
-		out.writeObject(getData());
+		out.writeObject(data);
 	}
 
 	public void readToFile(ObjectInputStream in) throws IOException,
