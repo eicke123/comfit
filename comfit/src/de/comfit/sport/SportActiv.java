@@ -62,7 +62,6 @@ public abstract class SportActiv extends BroadcastReceiver
 						Intent i= new Intent(context, TweetActivity.class);
 						i.putExtra("message", "Yuhu ...  ;) ");
 						context.startActivity(i);
-
 					}
 				  })
 				.setNegativeButton("No",new DialogInterface.OnClickListener() {

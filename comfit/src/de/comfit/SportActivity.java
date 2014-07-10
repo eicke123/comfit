@@ -43,6 +43,8 @@ public class SportActivity extends Activity
         	 ((RunningActiv)sportActiv).setSteps(5);
          else if (sportActiv instanceof SitUpActiv)
         	 ((SitUpActiv)sportActiv).setSitups(5);
+         else if (sportActiv instanceof PushUpActiv)
+        	 ((PushUpActiv)sportActiv).setPushups(5);
          sportActiv.start(v);
       }
    }
