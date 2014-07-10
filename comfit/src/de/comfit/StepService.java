@@ -95,7 +95,7 @@ public class StepService extends Service implements SensorEventListener {
 	private void createShareDialog() {
 		// TODO Auto-generated method stub
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				getBaseContext());
+				this);
  
 			// set title
 			alertDialogBuilder.setTitle("Share on Twitter?");
@@ -105,8 +105,8 @@ public class StepService extends Service implements SensorEventListener {
 				.setCancelable(false)
 				.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,int id) {
-						Intent i= new Intent(getBaseContext(), TweetActivity.class);
-						i.putExtra("message", "Yuhu ... ich habe "+steps+" gemacht !");
+						Intent i= new Intent(getApplicationContext(), TweetActivity.class);
+						i.putExtra("message", "Yuhu ... ich habe "+steps+" Schritte gemacht ;) ");
 						startActivity(i);
 					}
 				  })

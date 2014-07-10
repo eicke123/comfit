@@ -3,12 +3,15 @@ package de.comfit;
 import java.text.DecimalFormat;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -112,12 +115,50 @@ public class PushupActivity extends Activity implements SensorEventListener,
 				increaseDonePushups();
 
 				setPushupCounterLabel();
+				createShareDialog();
 			}
 
 		});
 
 	}
 
+	private void createShareDialog() {
+		// TODO Auto-generated method stub
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				this);
+ 
+			// set title
+			alertDialogBuilder.setTitle("Share on Twitter?");
+ 
+			// set dialog message
+			alertDialogBuilder
+				.setCancelable(false)
+				.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						Intent i= new Intent(getApplicationContext(), TweetActivity.class);
+						i.putExtra("message", "Yuhu ... ich habe "+pushUps+" PushUp(s) gemacht ;)");
+						startActivity(i);
+					}
+				  })
+				.setNegativeButton("No",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						dialog.cancel();
+					}
+				});
+ 
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+ 
+				// show it
+				try {
+				      alertDialog.show();
+				 } catch(Exception e){
+				   Log.d("de.comfit", "Exception");
+				 }
+			}
+	
 	/*
 	 * Register listener for imageButton
 	 */
