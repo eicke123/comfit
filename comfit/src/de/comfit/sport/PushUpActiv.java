@@ -5,30 +5,31 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import de.comfit.PushupActivity;
-import de.comfit.StepService;
+import de.comfit.SportActivity;
 
 public class PushUpActiv extends SportActiv {
 
 	public static double weight;
-	
-	private int pushups;
 
-	public PushUpActiv(Activity context) {
+	public PushUpActiv(SportActivity context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void start(View source) {
-		this.setSource(source);
-		
-		Intent intent = new Intent(context, PushUpActiv.class);
-		intent.putExtra("count", pushups);
-		intent.putExtra("hashcode", this.hashCode());
-
-	    context.startService(intent);
-	    
+		Intent intent = new Intent(context, PushupActivity.class);
+		intent.putExtra("count", 20);
+		context.startActivity(intent);
+	    this.setSource(source);
 	}
+
+	@Override
+	public void updateProgress(int percent) {
+		// TODO Auto-generated method stub
+
+	}
+
 
 	@Override
 	public double getCalStep() {
@@ -44,17 +45,8 @@ public class PushUpActiv extends SportActiv {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		SportActiv activ = super.getSportActivByHash(intent.getIntExtra("hashcode",0));
-		int pushupsDone = intent.getIntExtra("pushups", 1);
-		activ.updateProgress(pushupsDone*100/((PushUpActiv)activ).getPushups());
-	}
-	
-	public int getPushups() {
-		return pushups;
-	}
-
-	public void setPushups(int pushups) {
-		this.pushups = pushups;
+		// TODO Auto-generated method stub
+		
 	}
 
 }

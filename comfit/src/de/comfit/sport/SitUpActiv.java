@@ -6,13 +6,14 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import de.comfit.SitUpService;
+import de.comfit.SportActivity;
 import de.comfit.StepService;
 
 public class SitUpActiv extends SportActiv {
 	public static final int CAL_PER_SITUP = 1;
 	private int situps;
 
-	public SitUpActiv(Activity context) {
+	public SitUpActiv(SportActivity context) {
 		super(context);
 	}
 	

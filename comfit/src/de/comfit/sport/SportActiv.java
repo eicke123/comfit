@@ -1,9 +1,12 @@
 package de.comfit.sport;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import de.comfit.ClickSportActiv;
 import de.comfit.R;
+import de.comfit.SportActivity;
 import de.comfit.TweetActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,13 +20,13 @@ import android.widget.ProgressBar;
 
 public abstract class SportActiv extends BroadcastReceiver
 {
-   protected Activity context;
+   protected SportActivity context;
    protected int index;
    private int progess;
    private View source;
    public static final HashSet< SportActiv> sportActivs =  new HashSet<SportActiv>();
 
-   public SportActiv(Activity context)
+   public SportActiv(SportActivity context)
    {
 	   this();
       this.context = context;
@@ -62,6 +65,7 @@ public abstract class SportActiv extends BroadcastReceiver
 						Intent i= new Intent(context, TweetActivity.class);
 						i.putExtra("message", "Yuhu ...  ;) ");
 						context.startActivity(i);
+
 					}
 				  })
 				.setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -88,6 +92,44 @@ public abstract class SportActiv extends BroadcastReceiver
 
    }
 
+   public void disableOthers()
+   {
+      ArrayList<SportActiv> sportActivs2 = context.getSportActivs();
+      for (SportActiv sportActiv : sportActivs2)
+      {
+         if (sportActiv != this)
+         {
+            sportActiv.disable();
+         }
+      }
+      ClickSportActiv.active = false;
+   }
+   
+   
+   private void disable()
+   {
+      source.setBackgroundColor(getSource().getResources().getColor(R.color.disabled));
+   }
+   public void enableOthers()
+   {
+      ArrayList<SportActiv> sportActivs2 = context.getSportActivs();
+      for (SportActiv sportActiv : sportActivs2)
+      {
+         if (sportActiv != this)
+         {
+            sportActiv.disable();
+         }
+      }
+      ClickSportActiv.active = true;
+   }
+   
+   
+   private void enable()
+   {
+      source.setBackgroundColor(getSource().getResources().getColor(R.color.standart));
+   }
+
+   
    public abstract void start(View source);
 
 public View getSource() {
