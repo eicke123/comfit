@@ -67,7 +67,7 @@ public class RunningActiv extends SportActiv {
 	public void onReceive(Context context, Intent intent) {
 		SportActiv activ = super.getSportActivByHash(intent.getIntExtra("hashcode",0));
 		int stepsDone = intent.getIntExtra("doneSteps", 1);
-		activ.updateProgress(stepsDone*100/((RunningActiv)activ).getSteps());
+		activ.updateProgress(stepsDone*100/((RunningActiv)activ).getSteps(),stepsDone,this);
 	}
 
 }

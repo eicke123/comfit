@@ -166,7 +166,7 @@ public class SportActivity extends Activity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		int progress = data.getExtras().getInt("progress");
 		SportActiv sportActiv = generateActivitys.get(requestCode);
-		sportActiv.updateProgress(progress);
+		sportActiv.updateProgress(progress,0,null);
 		
 	}
 

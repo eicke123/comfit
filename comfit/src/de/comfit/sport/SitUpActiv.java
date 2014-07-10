@@ -56,7 +56,7 @@ public class SitUpActiv extends SportActiv {
 	public void onReceive(Context context, Intent intent) {
 		SportActiv activ = super.getSportActivByHash(intent.getIntExtra("hashcode",0));
 		int situpsDone = intent.getIntExtra("doneSitUps", 1);
-		activ.updateProgress(situpsDone*100/situps);
+		activ.updateProgress(situpsDone*100/((SitUpActiv)activ).getSitups(),situpsDone, this);
 	}
 
 }

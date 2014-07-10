@@ -33,7 +33,7 @@ public abstract class SportActiv extends BroadcastReceiver
 	   sportActivs.add(this);
    }
 
-   public void updateProgress(int percent)
+   public void updateProgress(int percent, int stepsSitups, SportActiv activ)
    {
       this.progess = percent;
       Log.d("de.comfit", "update: "+percent);
@@ -41,11 +41,16 @@ public abstract class SportActiv extends BroadcastReceiver
       p.setProgress(progess);
       getSource().setBackgroundColor(getSource().getResources().getColor(R.color.done));
       if(percent==100){
-    	  createShareDialog();
+    	  if(activ !=null && activ instanceof SitUpActiv){
+    		  createShareDialog(stepsSitups,"SitUps");
+    	  }
+    	  if(activ !=null && activ instanceof RunningActiv){
+    		  createShareDialog(stepsSitups,"Schritte");
+    	  }
       }
    }
 
-   private void createShareDialog() {
+   private void createShareDialog(final int stepsSitups, final String text) {
 		// TODO Auto-generated method stub
 		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -60,7 +65,7 @@ public abstract class SportActiv extends BroadcastReceiver
 				.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,int id) {
 						Intent i= new Intent(context, TweetActivity.class);
-						i.putExtra("message", "Yuhu ...  ;) ");
+						i.putExtra("message", "Yuhu ...  ich habe gerade  "+stepsSitups+" "+ text+" gemacht!");
 						context.startActivity(i);
 					}
 				  })
