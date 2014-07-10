@@ -285,7 +285,6 @@ public class PushupActivity extends Activity implements SensorEventListener,
 		progress = (pushUps * 100 / pushupToDo);
 
 		if (progress == 100) {
-			
 			createShareDialog();
 			Toast.makeText(this, "You have finished this activity",
 					Toast.LENGTH_LONG).show();

@@ -90,7 +90,9 @@ public class StepService extends Service implements SensorEventListener {
 		sendBroadcast(intent);
 		
 		if (progress >= 100) {
-			createShareDialog();
+//			createShareDialog();
+			exit();
+			stopSelf();
 		}
 	}
 
