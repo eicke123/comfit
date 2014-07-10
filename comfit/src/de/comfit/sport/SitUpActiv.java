@@ -11,7 +11,6 @@ import de.comfit.StepService;
 public class SitUpActiv extends SportActiv {
 	public static final int CAL_PER_SITUP = 1;
 	private int situps;
-	private int percent;
 
 	public SitUpActiv(Activity context) {
 		super(context);
@@ -22,20 +21,11 @@ public class SitUpActiv extends SportActiv {
 		situps = 20;
 	}
 	
-	public void start() {		
+	private void start() {		
 		Intent intent = new Intent(context, SitUpService.class);
 		intent.putExtra("situps", situps);
 	    context.startService(intent);
 	}
-
-	@Override
-	public void updateProgress(int percent) {
-		this.setPercent(percent);
-		
-		// TODO Auto-generated method stub
-		Log.d("de.comfit", "UpdatedProgress:"+percent);
-	}
-
 
 	public int getSitups() {
 		return situps;
@@ -45,13 +35,6 @@ public class SitUpActiv extends SportActiv {
 		this.situps = situps;
 	}
 	
-	public int getPercent() {
-		return percent;
-	}
-
-	public void setPercent(int percent) {
-		this.percent = percent;
-	}
 
 	@Override
 	public double getCalStep() {

@@ -28,14 +28,6 @@ public class RunningActiv extends SportActiv {
 	    context.startService(intent);
 	}
 
-	@Override
-	public void updateProgress(int percent) {
-		this.setPercent(percent);
-		
-		// TODO Auto-generated method stub
-Log.d("de.comfit", "UpdatedProgress:"+percent);
-	}
-
 	public int getSteps() {
 		return steps;
 	}

@@ -9,7 +9,6 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
-import de.comfit.sport.PushUpActiv;
 
 public class SitUpService extends Service implements SensorEventListener {
 	private boolean unten = false;
@@ -21,7 +20,7 @@ public class SitUpService extends Service implements SensorEventListener {
 	int progress = 0;
 	int sitUpsZuMachen;
 
-	// Variable die prï¿½ft ob eine Challenge erfolgreich beendet wurde
+	// Variable die prŸft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone = true;
 
 	@Override
@@ -33,15 +32,9 @@ public class SitUpService extends Service implements SensorEventListener {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		// TODO do something useful
-		//obj = (PushUpActiv) intent.getParcelableExtra("sportactiv");
-		// obj=(PushUpActiv)intent.getParcelableExtra("sportactiv");
-		// obj.start();
 		sitUpsZuMachen = intent.getIntExtra("situps", 1);
 		init();
-//		
-//		calculateProgress();
-//		Log.d("de.comfit", "start");
+
 		return Service.START_STICKY;
 	}
 
@@ -69,7 +62,7 @@ public class SitUpService extends Service implements SensorEventListener {
 		
 		Intent intent = new Intent();
 		intent.setAction("de.comfit.sport.SitUpActiv");
-		intent.putExtra("doneSitUps", (anzahlSitUps));
+		intent.putExtra("doneSitUps", anzahlSitUps);
 		sendBroadcast(intent);
 		
 		if (progress >= 100) {

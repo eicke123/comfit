@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import de.comfit.sport.PushUpActiv;
 import de.comfit.sport.RunningActiv;
+import de.comfit.sport.SitUpActiv;
 import de.comfit.sport.SportActiv;
 import android.app.Activity;
 import android.content.Context;
@@ -80,6 +81,16 @@ public class SportActivity extends Activity
             registerListensers(activitys, run, row);
             activitys.addView(row);
          }
+         else if (sportActiv instanceof SitUpActiv)
+         {
+            SitUpActiv run = (SitUpActiv) sportActiv;
+            final LinearLayout row = (LinearLayout) li.inflate(R.layout.situpactivity, null);
+
+            TextView text = (TextView) row.findViewById(R.id.text);
+            text.setText("Make situps");
+            registerListensers(activitys, run, row);
+            activitys.addView(row);
+         }
 
       }
    }
@@ -104,7 +115,7 @@ public class SportActivity extends Activity
    {
       ArrayList<SportActiv> sportActivs = new ArrayList<SportActiv>();
       Class<? extends SportActiv>[] activs = new Class[]
-      { RunningActiv.class, PushUpActiv.class };
+      { RunningActiv.class, PushUpActiv.class, SitUpActiv.class };
       while (cal > 0)
       {
          double random2 = Math.random();
