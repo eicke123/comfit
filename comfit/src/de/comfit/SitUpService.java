@@ -19,7 +19,7 @@ public class SitUpService extends Service implements SensorEventListener {
 
 	// Anzahl der gemachten Schritte
 	int progress = 0;
-	int sitUpsZuMachen = 100;
+	int sitUpsZuMachen;
 
 	// Variable die pr�ft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone = true;
@@ -29,6 +29,19 @@ public class SitUpService extends Service implements SensorEventListener {
 		if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 			beschleunigung(sensorEvent);
 		}
+		
+		
+		progress = (int) ((anzahlSitUps)*100 / sitUpsZuMachen);
+		
+		Intent intent = new Intent();
+		intent.setAction("de.comfit.sport.SitUpActiv");
+		intent.putExtra("doneSitUps", (anzahlSitUps));
+		sendBroadcast(intent);
+		
+		if (progress >= 100) {
+			exit();
+			stopSelf();
+		}
 	}
 
 	@Override
@@ -37,11 +50,11 @@ public class SitUpService extends Service implements SensorEventListener {
 		//obj = (PushUpActiv) intent.getParcelableExtra("sportactiv");
 		// obj=(PushUpActiv)intent.getParcelableExtra("sportactiv");
 		// obj.start();
-		
+		sitUpsZuMachen = intent.getIntExtra("situps", 1);
 		init();
-		
-		calculateProgress();
-		Log.d("de.comfit", "start");
+//		
+//		calculateProgress();
+//		Log.d("de.comfit", "start");
 		return Service.START_STICKY;
 	}
 
@@ -68,20 +81,6 @@ public class SitUpService extends Service implements SensorEventListener {
 
 	}
 
-	/**
-	 * Berechnet den Fortschritt der �bergebenen Challenge
-	 */
-	private void calculateProgress() {
-		while (challengeIsNotDone) {
-			progress = (int) (anzahlSitUps / (sitUpsZuMachen / 100));
-			if (anzahlSitUps > (sitUpsZuMachen / 100)) {
-				if (anzahlSitUps >= sitUpsZuMachen) {
-					challengeIsNotDone = false;
-				}
-			}
-		}
-
-	}
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int i) {

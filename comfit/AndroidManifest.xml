@@ -82,6 +82,11 @@
                 <action android:name="de.comfit.sport.RunningActiv" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".sport.SitUpActiv" >
+            <intent-filter>
+                <action android:name="de.comfit.sport.SitUpActiv" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".PushUpActiv" >
         </receiver>
         <receiver android:name=".SportActiv" >
