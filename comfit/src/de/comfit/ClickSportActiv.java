@@ -6,10 +6,9 @@ import de.comfit.sport.SportActiv;
 
 public class ClickSportActiv implements View.OnClickListener
 {
-   public static boolean active;
+   private static boolean active;
    private SportActiv sportActiv;
    
-   public static boolean acvive = true;
 
    public ClickSportActiv(SportActiv sportActiv)
    {
@@ -19,10 +18,20 @@ public class ClickSportActiv implements View.OnClickListener
    @Override
    public void onClick(View v)
    {
-      if (acvive)
+      if (isActive())
       {
          v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
          this.sportActiv.start(v);
       }
+   }
+
+   public static boolean isActive()
+   {
+      return active;
+   }
+
+   public static void setActive(boolean active)
+   {
+      ClickSportActiv.active = active;
    }
 }

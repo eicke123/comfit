@@ -107,7 +107,7 @@ public abstract class SportActiv extends BroadcastReceiver
             sportActiv.disable();
          }
       }
-      ClickSportActiv.active = false;
+      ClickSportActiv.setActive(false);;
    }
    
    
@@ -128,7 +128,7 @@ public abstract class SportActiv extends BroadcastReceiver
             sportActiv.disable();
          }
       }
-      ClickSportActiv.acvive = true;
+      ClickSportActiv.setActive(true);;
    }
    
    
