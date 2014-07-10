@@ -91,8 +91,6 @@ public class StepService extends Service implements SensorEventListener {
 		
 		if (progress >= 100) {
 			createShareDialog();
-			exit();
-			stopSelf();
 		}
 	}
 
@@ -112,13 +110,17 @@ public class StepService extends Service implements SensorEventListener {
 						Intent i= new Intent(getApplicationContext(), TweetActivity.class);
 						i.putExtra("message", "Yuhu ... ich habe "+steps+" Schritte gemacht ;) ");
 						startActivity(i);
+						exit();
+						stopSelf();
 					}
 				  })
 				.setNegativeButton("No",new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,int id) {
 						// if this button is clicked, just close
 						// the dialog box and do nothing
-						dialog.cancel();
+						dialog.dismiss();
+						exit();
+						stopSelf();
 					}
 				});
  
