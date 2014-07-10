@@ -20,7 +20,7 @@ public class PushUpActiv extends SportActiv {
 		Intent intent = new Intent(context, PushupActivity.class);
 		intent.putExtra("count", 20);
 		context.startActivity(intent);
-	    this.source = source;
+	    this.setSource(source);
 	}
 
 	@Override

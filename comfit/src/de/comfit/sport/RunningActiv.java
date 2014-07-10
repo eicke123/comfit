@@ -2,6 +2,7 @@ package de.comfit.sport;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -23,8 +24,11 @@ public class RunningActiv extends SportActiv {
 	}
 	
 	public void start() {		
+		
 		Intent intent = new Intent(context, StepService.class);
 		intent.putExtra("schritte", steps);
+		intent.putExtra("hashcode", this.hashCode());
+		System.out.println(this.hashCode());
 	    context.startService(intent);
 	}
 
@@ -53,7 +57,7 @@ public class RunningActiv extends SportActiv {
 	@Override
 	public void start(View source) {
 		// TODO Auto-generated method stub
-		this.source = source;
+		this.setSource(source);
 		
 		setSteps(20);
 		start();
@@ -63,9 +67,11 @@ public class RunningActiv extends SportActiv {
 	// TODO call right updateProgress  Method and update progressbar
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		SportActiv activ = super.getSportActivByHash(intent.getIntExtra("hashcode",0));
+		System.out.println(activ.hashCode());
 		int stepsDone = intent.getIntExtra("doneSteps", 1);
 		//Toast.makeText(context, "Steps: " + stepsDone, Toast.LENGTH_SHORT).show();
-		updateProgress(stepsDone*100/steps);
+		activ.updateProgress(stepsDone*100/steps);
 	}
 
 }

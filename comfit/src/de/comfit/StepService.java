@@ -35,15 +35,17 @@ public class StepService extends Service implements SensorEventListener {
 	// Variable die prŸft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone = true;
 
+	private int sourceHash;
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		// TODO do something useful
-		schritteZuMachen = intent.getIntExtra("schritte", 1);
-		
-		init();
-		
-		Log.d("de.comfit", "start");
-
+		if (intent != null) {
+			// TODO do something useful
+			schritteZuMachen = intent.getIntExtra("schritte", 1);
+			sourceHash = intent.getIntExtra("hashcode", 0);
+			init();
+			Log.d("de.comfit", "start");
+		}
 		return Service.START_STICKY;
 	}
 
@@ -83,6 +85,8 @@ public class StepService extends Service implements SensorEventListener {
 		Intent intent = new Intent();
 		intent.setAction("de.comfit.sport.RunningActiv");
 		intent.putExtra("doneSteps", (steps-stepsCachedBySensor));
+		intent.putExtra("hashcode", sourceHash);
+		System.out.println(sourceHash);
 		sendBroadcast(intent);
 		
 		if (progress >= 100) {
