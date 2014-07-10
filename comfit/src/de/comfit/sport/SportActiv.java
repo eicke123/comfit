@@ -102,6 +102,7 @@ public abstract class SportActiv extends BroadcastReceiver
             sportActiv.disable();
          }
       }
+<<<<<<< 5bd3435bd76c0a96070e5c9d70389e8d5003ee5b
       ClickSportActiv.active = false;
    }
    
@@ -124,6 +125,30 @@ public abstract class SportActiv extends BroadcastReceiver
    }
    
    
+=======
+      ClickSportActiv.acvive = false;
+   }
+   
+   
+   private void disable()
+   {
+      source.setBackgroundColor(getSource().getResources().getColor(R.color.disabled));
+   }
+   public void enableOthers()
+   {
+      ArrayList<SportActiv> sportActivs2 = context.getSportActivs();
+      for (SportActiv sportActiv : sportActivs2)
+      {
+         if (sportActiv != this)
+         {
+            sportActiv.disable();
+         }
+      }
+      ClickSportActiv.acvive = true;
+   }
+   
+   
+>>>>>>> 1a808a5fd522e748530e135018558138198017b9
    private void enable()
    {
       source.setBackgroundColor(getSource().getResources().getColor(R.color.standart));
@@ -148,5 +173,6 @@ public SportActiv getSportActivByHash(int hashcode) {
 	}
 	return null;
 }
+
 
 }

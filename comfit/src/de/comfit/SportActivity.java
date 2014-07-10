@@ -33,8 +33,13 @@ public class SportActivity extends Activity
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activitys);
 
+<<<<<<< 5bd3435bd76c0a96070e5c9d70389e8d5003ee5b
       sportActivs = generateActivitys(5000);
       addViewsForActivitys(sportActivs);
+=======
+      setSportActivs(generateActivitys(5000));
+      addViewsForActivitys(getSportActivs());
+>>>>>>> 1a808a5fd522e748530e135018558138198017b9
    }
 
    private void addViewsForActivitys(ArrayList<SportActiv> generateActivitys)
