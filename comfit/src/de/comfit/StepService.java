@@ -1,6 +1,8 @@
 package de.comfit;
 
+import android.app.AlertDialog;
 import android.app.Service;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -84,10 +86,45 @@ public class StepService extends Service implements SensorEventListener {
 		sendBroadcast(intent);
 		
 		if (progress >= 100) {
+			createShareDialog();
 			exit();
 			stopSelf();
 		}
 	}
+
+	private void createShareDialog() {
+		// TODO Auto-generated method stub
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				getBaseContext());
+ 
+			// set title
+			alertDialogBuilder.setTitle("Share on Twitter?");
+ 
+			// set dialog message
+			alertDialogBuilder
+				.setCancelable(false)
+				.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						Intent i= new Intent(getBaseContext(), TweetActivity.class);
+						i.putExtra("message", "Yuhu ... ich habe "+steps+" gemacht !");
+						startActivity(i);
+					}
+				  })
+				.setNegativeButton("No",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						dialog.cancel();
+					}
+				});
+ 
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+ 
+				// show it
+				alertDialog.show();
+			}
+	
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
