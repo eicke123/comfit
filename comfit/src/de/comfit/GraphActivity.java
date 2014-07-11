@@ -5,17 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GraphViewSeries;
-import com.jjoe64.graphview.LineGraphView;
-import com.jjoe64.graphview.GraphView.GraphViewData;
-
-import de.comfit.history.WorkoutData;
-import de.comfit.history.WorkoutItem;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GraphView.GraphViewData;
+import com.jjoe64.graphview.GraphViewSeries;
+import com.jjoe64.graphview.LineGraphView;
+
+import de.comfit.history.WorkoutData;
+import de.comfit.history.WorkoutItem;
 
 public class GraphActivity extends Activity {
 

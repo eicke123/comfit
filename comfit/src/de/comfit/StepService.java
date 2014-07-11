@@ -10,9 +10,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
-import de.comfit.sport.RunningActiv;
-import de.comfit.sport.SportActiv;
 
 /**
  * Zï¿½hlt die Schritte und prŸft ob eine ï¿½bergebene Challenge erledigt wurde
@@ -30,7 +27,7 @@ public class StepService extends Service implements SensorEventListener {
 	int progress = 0;
 	int schritteZuMachen;
 	int stepsCachedBySensor = -1;
-	
+
 	Intent i;
 
 	// Variable die prŸft ob eine Challenge erfolgreich beendet wurde
@@ -81,20 +78,19 @@ public class StepService extends Service implements SensorEventListener {
 			stepsCachedBySensor = (int) Math.round(event.values[0]);
 		steps = (int) Math.round(event.values[0]);
 
-		progress = (int) ((steps-stepsCachedBySensor)*100 / schritteZuMachen);
-		
+		progress = (int) ((steps - stepsCachedBySensor) * 100 / schritteZuMachen);
+
 		Intent intent = new Intent();
 		intent.setAction("de.comfit.sport.RunningActiv");
-		intent.putExtra("doneSteps", (steps-stepsCachedBySensor));
+		intent.putExtra("doneSteps", (steps - stepsCachedBySensor));
 		intent.putExtra("hashcode", sourceHash);
 		sendBroadcast(intent);
-		
+
 		if (progress >= 100) {
 			exit();
 			stopSelf();
 		}
 	}
-
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {

@@ -1,6 +1,6 @@
 package de.comfit;
 
-import android.app.*;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
