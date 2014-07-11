@@ -29,6 +29,7 @@ public class RunningActiv extends SportActiv
       intent.putExtra("hashcode", this.hashCode());
       System.out.println(this.hashCode());
       context.startService(intent);
+      super.setActive();
    }
 
    public int getSteps()
@@ -64,6 +65,7 @@ public class RunningActiv extends SportActiv
       // TODO Auto-generated method stub
       this.setSource(source);
       disableOthers();
+      
       start();
    }
 

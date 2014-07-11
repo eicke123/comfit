@@ -27,6 +27,8 @@ public class PushUpActiv extends SportActiv
       intent.putExtra("count", pushups);
       intent.putExtra("hashcode", this.source);
       context.startActivity(intent);
+      super.setActive();
+      disableOthers();
       this.setSource(source);
    }
 

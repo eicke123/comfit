@@ -93,16 +93,16 @@ public class SitUpService extends Service implements SensorEventListener
       {
          updateOnlySecondOne = 0;
          anzahlSitUps = anzahlSitUps + 1;
+         // Create Intent with situps to do
+         Intent intent = new Intent();
+         intent.setAction("de.comfit.sport.SitUpActiv");
+         intent.putExtra("doneSitUps", anzahlSitUps);
+         intent.putExtra("hashcode", sourceHash);
+         sendBroadcast(intent);
       }
       // calculate progress
       progress = (anzahlSitUps) * 100 / sitUpsZuMachen;
 
-      // Create Intent with situps to do
-      Intent intent = new Intent();
-      intent.setAction("de.comfit.sport.SitUpActiv");
-      intent.putExtra("doneSitUps", anzahlSitUps);
-      intent.putExtra("hashcode", sourceHash);
-      sendBroadcast(intent);
 
       if (progress >= 100)
       {

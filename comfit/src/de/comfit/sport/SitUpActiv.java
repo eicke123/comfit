@@ -28,7 +28,7 @@ public class SitUpActiv extends SportActiv
    private void start()
    {
       source = this.hashCode();
-
+      super.setActive();
       Intent intent = new Intent(context, SitUpService.class);
       intent.putExtra("situps", situps);
       intent.putExtra("hashcode", source);
@@ -57,7 +57,7 @@ public class SitUpActiv extends SportActiv
    {
       // TODO Auto-generated method stub
       this.setSource(source);
-
+      disableOthers();
       start();
    }
 

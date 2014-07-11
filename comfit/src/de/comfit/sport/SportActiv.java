@@ -279,4 +279,10 @@ public abstract class SportActiv extends BroadcastReceiver
       return workoutItem;
    }
 
+   public void setActive()
+   {
+      source.setBackgroundColor(getSource().getResources().getColor(
+         R.color.pressed));
+   }
+
 }
