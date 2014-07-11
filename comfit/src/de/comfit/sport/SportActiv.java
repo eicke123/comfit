@@ -59,7 +59,7 @@ public abstract class SportActiv extends BroadcastReceiver {
 				context);
 
 		// set title
-		alertDialogBuilder.setTitle("Share on Twitter?");
+		alertDialogBuilder.setTitle("Du hast die Challenge geschafft! \n Share on Twitter?");
 
 		// set dialog message
 		alertDialogBuilder

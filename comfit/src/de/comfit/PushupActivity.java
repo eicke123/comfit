@@ -131,7 +131,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
 		// set title
-		alertDialogBuilder.setTitle("Share on Twitter?");
+		alertDialogBuilder.setTitle("Du hast die Challenge geschafft! \n Share on Twitter?");
 
 		// set dialog message
 		alertDialogBuilder
