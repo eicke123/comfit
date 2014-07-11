@@ -12,14 +12,18 @@ import android.os.IBinder;
 import android.util.Log;
 
 /**
- * Zï¿½hlt die Schritte und prŸft ob eine ï¿½bergebene Challenge erledigt wurde
+ * Zï¿½hlt die Schritte und prï¿½ft ob eine ï¿½bergebene Challenge erledigt wurde
  * 
  * @author Comtec
  * 
  */
 public class StepService extends Service implements SensorEventListener {
 
-	// SensorManager Objekt
+	public static final String STEPSTODO = "stepstodo";
+
+   public static final String DONE_STEPS = "doneSteps";
+
+   // SensorManager Objekt
 	SensorManager sensorManager;
 
 	// Anzahl der gemachten Schritte
@@ -30,7 +34,7 @@ public class StepService extends Service implements SensorEventListener {
 
 	Intent i;
 
-	// Variable die prŸft ob eine Challenge erfolgreich beendet wurde
+	// Variable die prï¿½ft ob eine Challenge erfolgreich beendet wurde
 	boolean challengeIsNotDone = true;
 
 	private int sourceHash;
@@ -82,7 +86,8 @@ public class StepService extends Service implements SensorEventListener {
 
 		Intent intent = new Intent();
 		intent.setAction("de.comfit.sport.RunningActiv");
-		intent.putExtra("doneSteps", (steps - stepsCachedBySensor));
+		intent.putExtra(DONE_STEPS, (steps - stepsCachedBySensor));
+      intent.putExtra(STEPSTODO,schritteZuMachen);
 		intent.putExtra("hashcode", sourceHash);
 		sendBroadcast(intent);
 

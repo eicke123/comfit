@@ -9,7 +9,6 @@ import de.comfit.StepService;
 public class RunningActiv extends SportActiv {
 	public static final int CAL_PER_STEP = 1;
 	private int steps;
-	private int percent;
 
 	public RunningActiv(SportActivity context) {
 		super(context);
@@ -35,13 +34,6 @@ public class RunningActiv extends SportActiv {
 		this.steps = steps;
 	}
 
-	public int getPercent() {
-		return percent;
-	}
-
-	public void setPercent(int percent) {
-		this.percent = percent;
-	}
 
 	@Override
 	public double getCalStep(double weight) {
@@ -67,6 +59,11 @@ public class RunningActiv extends SportActiv {
 		activ.updateProgress(
 				stepsDone * 100 / ((RunningActiv) activ).getSteps(), stepsDone,
 				activ);
+		int stepsTodo = intent.getIntExtra(StepService.STEPSTODO, 1);
+		
+		
+		
+		
 	}
 
 	@Override
@@ -86,4 +83,11 @@ public class RunningActiv extends SportActiv {
 		// TODO Auto-generated method stub
 		steps = size;
 	}
+
+   @Override
+   public String getLabel()
+   {
+      // TODO Auto-generated method stub
+      return "running "  + steps;
+   }
 }

@@ -1,12 +1,15 @@
 package de.comfit.sport;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import de.comfit.ClickSportActiv;
 import de.comfit.R;
 import de.comfit.SportActivity;
 import de.comfit.TweetActivity;
+import de.comfit.history.WorkoutData;
+import de.comfit.history.WorkoutItem;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -23,13 +26,20 @@ public abstract class SportActiv extends BroadcastReceiver {
 	private int progess;
 	private View source;
 	public static final HashSet<SportActiv> sportActivs = new HashSet<SportActiv>();
+   private WorkoutItem workoutItem;
+   private HashMap<Long, Long> data;
 
 	public SportActiv(SportActivity context) {
 		this();
 		this.context = context;
+		workoutItem  = new WorkoutItem();
+		workoutItem.setLabel(getLabel());
+		data = new HashMap<Long, Long>();
 	}
 
-	public SportActiv() {
+	public abstract String getLabel();
+
+   public SportActiv() {
 		sportActivs.add(this);
 	}
 
@@ -39,6 +49,9 @@ public abstract class SportActiv extends BroadcastReceiver {
 		ProgressBar p = (ProgressBar) getSource().findViewById(
 				R.id.stepactivprogress);
 		p.setProgress(getProgess());
+		
+		data.put(System.currentTimeMillis(), (long) percent);
+		
 		if (percent == 100) {
 		   getSource().setBackgroundColor(
             getSource().getResources().getColor(R.color.done));
@@ -59,7 +72,7 @@ public abstract class SportActiv extends BroadcastReceiver {
 				context);
 
 		// set title
-		alertDialogBuilder.setTitle("Du hast die Challenge geschafft! \nShare on Twitter?");
+		alertDialogBuilder.setTitle("Share on Twitter?");
 
 		// set dialog message
 		alertDialogBuilder
