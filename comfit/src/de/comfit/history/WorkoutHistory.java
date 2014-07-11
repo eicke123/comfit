@@ -11,92 +11,79 @@ import java.io.Serializable;
 import android.content.Context;
 import de.comfit.R;
 
-public class WorkoutHistory implements Serializable
-{
+/**
+ * 
+ * @author Waldo This class saves and loads the whole workout data in a history
+ *         file
+ * 
+ */
+public class WorkoutHistory implements Serializable {
+	
+	private static final long serialVersionUID = -4735131709016438522L;
+	private WorkoutData[] data;
 
-   private static final long serialVersionUID = 1L;
+	public void writeToFile(ObjectOutputStream out) throws IOException {
+		out.writeObject(data);
+	}
 
-   private WorkoutData[] data;
+	public void readToFile(ObjectInputStream in) throws IOException,
+			ClassNotFoundException {
+		setData((WorkoutData[]) in.readObject());
+	}
 
-   public void writeToFile(ObjectOutputStream out) throws IOException
-   {
-      out.writeObject(data);
-   }
+	public WorkoutData[] getData() {
+		return data;
+	}
 
-   public void readToFile(ObjectInputStream in) throws IOException,
-         ClassNotFoundException
-   {
-      setData((WorkoutData[]) in.readObject());
-   }
+	public void setData(WorkoutData[] data) {
+		this.data = data;
+	}
 
-   public WorkoutData[] getData()
-   {
-      return data;
-   }
+	/*
+	 * Load workout data from history file
+	 */
+	public WorkoutData[] loadWorkoutData(Context c) {
+		WorkoutData[] data = null;
+		try {
+			FileInputStream fin = c.openFileInput(c
+					.getString(R.string.history_file_name));
+			ObjectInputStream ois = new ObjectInputStream(fin);
+			data = (WorkoutData[]) ois.readObject();
+			ois.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-   public void setData(WorkoutData[] data)
-   {
-      this.data = data;
-   }
+		this.data = data;
+		return data;
+	}
 
-   /*
-    * Load workout data from history file
-    */
-   public WorkoutData[] loadWorkoutData(Context c)
-   {
-      WorkoutData[] data = null;
-      try
-      {
-         FileInputStream fin = c.openFileInput(c.getString(R.string.history_file_name));
-         ObjectInputStream ois = new ObjectInputStream(fin);
-         data = (WorkoutData[]) ois.readObject();
-         ois.close();
-      }
-      catch (FileNotFoundException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      catch (IOException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      catch (ClassNotFoundException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
+	/*
+	 * Saves workout data provided by SportActivity to file
+	 */
+	public void saveWorkoutData(Context c) {
+		// retrieved from SportActivity
 
-      this.data = data;
-      return data;
-   }
-
-   /*
-    * Saves workout data provided by SportActivity to file
-    */
-   public void saveWorkoutData(Context c)
-   {
-      // retrieved from SportActivity
-
-      try
-      {
-         FileOutputStream fos = c.openFileOutput(
-            c.getString(R.string.history_file_name),
-            Context.MODE_PRIVATE);
-         ObjectOutputStream os = new ObjectOutputStream(fos);
-         this.writeToFile(os);
-         os.close();
-      }
-      catch (FileNotFoundException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      catch (IOException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-   }
+		try {
+			FileOutputStream fos = c.openFileOutput(
+					c.getString(R.string.history_file_name),
+					Context.MODE_PRIVATE);
+			ObjectOutputStream os = new ObjectOutputStream(fos);
+			this.writeToFile(os);
+			os.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

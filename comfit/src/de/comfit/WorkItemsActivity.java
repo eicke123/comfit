@@ -1,9 +1,5 @@
 package de.comfit;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -13,9 +9,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import de.comfit.history.WorkoutData;
+import de.comfit.history.WorkoutHistory;
 import de.comfit.history.WorkoutItem;
 import de.comfit.util.StableArrayAdapter;
 
+/**
+ * 
+ * @author Waldo
+ * This activity shows the work items for a certain workout
+ *  
+ */
 public class WorkItemsActivity extends Activity
 {
 
@@ -44,7 +47,7 @@ public class WorkItemsActivity extends Activity
    {
       final ListView listview = (ListView) findViewById(R.id.workout_list);
       // Load data from file and show every item in list view
-      WorkoutData[] data = loadWorkoutData();
+      WorkoutData[] data = (new WorkoutHistory()).loadWorkoutData(this);
       if (data != null && dataPosition != -1)
       {
          final WorkoutItem[] items = data[dataPosition].getWorkoutItems();
@@ -76,8 +79,6 @@ public class WorkItemsActivity extends Activity
             {
                if (items[itemPosition].getGraphData() != null)
                {
-                  final String item = (String) parent
-                     .getItemAtPosition(itemPosition);
                   intent.putExtra("dataPosition", dataPosition);
                   intent.putExtra("itemPosition", itemPosition);
                   startActivity(intent);
@@ -86,36 +87,5 @@ public class WorkItemsActivity extends Activity
 
          });
       }
-   }
-
-   /*
-    * Load workout data from history file
-    */
-   private WorkoutData[] loadWorkoutData()
-   {
-      WorkoutData[] data = null;
-      try
-      {
-         FileInputStream fin = openFileInput(getString(R.string.history_file_name));
-         ObjectInputStream ois = new ObjectInputStream(fin);
-         data = (WorkoutData[]) ois.readObject();
-         ois.close();
-      }
-      catch (FileNotFoundException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      catch (IOException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      catch (ClassNotFoundException e)
-      {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      return data;
    }
 }
