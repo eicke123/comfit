@@ -24,71 +24,79 @@ public abstract class SportActiv extends BroadcastReceiver
    protected int index;
    private int progess;
    private View source;
-   public static final HashSet< SportActiv> sportActivs =  new HashSet<SportActiv>();
+   public static final HashSet<SportActiv> sportActivs = new HashSet<SportActiv>();
 
    public SportActiv(SportActivity context)
    {
-	   this();
+      this();
       this.context = context;
    }
-   
-   public SportActiv() {
-	   sportActivs.add(this);
+
+   public SportActiv()
+   {
+      sportActivs.add(this);
    }
 
    public void updateProgress(int percent, int stepsSitups, SportActiv activ)
    {
       this.progess = percent;
-      Log.d("de.comfit", "update: "+percent);
+      Log.d("de.comfit", "update: " + percent);
       ProgressBar p = (ProgressBar) getSource().findViewById(R.id.stepactivprogress);
       p.setProgress(progess);
       getSource().setBackgroundColor(getSource().getResources().getColor(R.color.done));
-      if(percent==100){
-    	  if(activ !=null && activ instanceof SitUpActiv){
-    		  createShareDialog(stepsSitups,"SitUps");
-    	  }
-    	  if(activ !=null && activ instanceof RunningActiv){
-    		  createShareDialog(stepsSitups,"Schritte");
-    	  }
+      if (percent == 100)
+      {
+         if (activ != null && activ instanceof SitUpActiv)
+         {
+            createShareDialog(stepsSitups, "SitUps");
+         }
+         if (activ != null && activ instanceof RunningActiv)
+         {
+            createShareDialog(stepsSitups, "Schritte");
+         }
       }
    }
 
-   private void createShareDialog(final int stepsSitups, final String text) {
-		// TODO Auto-generated method stub
-		
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				context);
+   private void createShareDialog(final int stepsSitups, final String text)
+   {
+      // TODO Auto-generated method stub
 
-			// set title
-			alertDialogBuilder.setTitle("Share on Twitter?");
+      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+            context);
 
-			// set dialog message
-			alertDialogBuilder
-				.setCancelable(false)
-				.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
-						Intent i= new Intent(context, TweetActivity.class);
-						i.putExtra("message", "Yuhu ...  ich habe gerade  "+stepsSitups+" "+ text+" gemacht!");
-						context.startActivity(i);
+      // set title
+      alertDialogBuilder.setTitle("Share on Twitter?");
 
-					}
-				  })
-				.setNegativeButton("No",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
-						// if this button is clicked, just close
-						// the dialog box and do nothing
-						dialog.dismiss();
-					}
-				});
+      // set dialog message
+      alertDialogBuilder
+         .setCancelable(false)
+         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+         {
+            public void onClick(DialogInterface dialog, int id)
+            {
+               Intent i = new Intent(context, TweetActivity.class);
+               i.putExtra("message", "Yuhu ...  ich habe gerade  " + stepsSitups + " " + text + " gemacht!");
+               context.startActivity(i);
 
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
+            }
+         })
+         .setNegativeButton("No", new DialogInterface.OnClickListener()
+         {
+            public void onClick(DialogInterface dialog, int id)
+            {
+               // if this button is clicked, just close
+               // the dialog box and do nothing
+               dialog.dismiss();
+            }
+         });
 
-				// show it
-				alertDialog.show();
-			}
-	
-   
+      // create alert dialog
+      AlertDialog alertDialog = alertDialogBuilder.create();
+
+      // show it
+      alertDialog.show();
+   }
+
    public abstract double getCalStep();
 
    public void setIndex(int index)
@@ -107,17 +115,15 @@ public abstract class SportActiv extends BroadcastReceiver
             sportActiv.disable();
          }
       }
-      ClickSportActiv.setActive(false);;
+      ClickSportActiv.setActive(false);
+      ;
    }
-   
-   
 
-   
-   
    private void disable()
    {
       source.setBackgroundColor(getSource().getResources().getColor(R.color.disabled));
    }
+
    public void enableOthers()
    {
       ArrayList<SportActiv> sportActivs2 = context.getSportActivs();
@@ -128,34 +134,37 @@ public abstract class SportActiv extends BroadcastReceiver
             sportActiv.disable();
          }
       }
-      ClickSportActiv.setActive(true);;
+      ClickSportActiv.setActive(true);
+      ;
    }
-   
-   
+
    private void enable()
    {
       source.setBackgroundColor(getSource().getResources().getColor(R.color.standart));
    }
 
-   
    public abstract void start(View source);
 
-public View getSource() {
-	return source;
-}
+   public View getSource()
+   {
+      return source;
+   }
 
-public void setSource(View source) {
-	this.source = source;
-}
+   public void setSource(View source)
+   {
+      this.source = source;
+   }
 
-public SportActiv getSportActivByHash(int hashcode) {
-	for (SportActiv a : sportActivs) {
-		if (a.hashCode() == hashcode) {
-			return a;
-		}
-	}
-	return null;
-}
-
+   public SportActiv getSportActivByHash(int hashcode)
+   {
+      for (SportActiv a : sportActivs)
+      {
+         if (a.hashCode() == hashcode)
+         {
+            return a;
+         }
+      }
+      return null;
+   }
 
 }
