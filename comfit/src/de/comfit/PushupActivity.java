@@ -136,7 +136,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 				.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,int id) {
 						Intent i= new Intent(getApplicationContext(), TweetActivity.class);
-						i.putExtra("message", "Yuhu ... ich habe "+pushUps+" PushUp(s) gemacht ;)");
+						i.putExtra("message", "Yuhu ... ich habe " +pushUps+ " PushUp(s) gemacht ;)");
 						startActivity(i);
 						finish();
 						dialog.dismiss();
