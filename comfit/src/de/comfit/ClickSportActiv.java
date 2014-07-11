@@ -6,7 +6,7 @@ import de.comfit.sport.SportActiv;
 
 public class ClickSportActiv implements View.OnClickListener
 {
-   private static boolean active;
+   private static boolean active =true;
    private SportActiv sportActiv;
    
 
