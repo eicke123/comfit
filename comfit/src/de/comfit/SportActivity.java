@@ -83,7 +83,7 @@ public class SportActivity extends Activity {
 	private void registerListensers(final LinearLayout activitys,
 			SportActiv run, final LinearLayout row) {
 		row.setOnClickListener(new ClickSportActiv(run));
-		row.setOnTouchListener(new TouchLitener());
+		row.setOnTouchListener(new TouchLitener(run));
 		View cancelButton = row.findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new View.OnClickListener() {
 

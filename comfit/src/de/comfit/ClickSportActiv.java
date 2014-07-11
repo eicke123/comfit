@@ -18,7 +18,7 @@ public class ClickSportActiv implements View.OnClickListener
    @Override
    public void onClick(View v)
    {
-      if (isActive())
+      if (isActive()&& sportActiv.getProgess() <100)
       {
          v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
          this.sportActiv.start(v);

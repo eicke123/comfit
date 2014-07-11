@@ -53,7 +53,7 @@ public class RunningActiv extends SportActiv {
 	public void start(View source) {
 		// TODO Auto-generated method stub
 		this.setSource(source);
-
+		disableOthers();
 		setSteps(5);
 		start();
 	}

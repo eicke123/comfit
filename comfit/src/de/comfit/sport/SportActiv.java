@@ -34,14 +34,15 @@ public abstract class SportActiv extends BroadcastReceiver {
 	}
 
 	public void updateProgress(int percent, int stepsSitups, SportActiv activ) {
-		this.progess = percent;
+		this.setProgess(percent);
 		Log.d("de.comfit", "update: " + percent);
 		ProgressBar p = (ProgressBar) getSource().findViewById(
 				R.id.stepactivprogress);
-		p.setProgress(progess);
-		getSource().setBackgroundColor(
-				getSource().getResources().getColor(R.color.done));
+		p.setProgress(getProgess());
 		if (percent == 100) {
+		   getSource().setBackgroundColor(
+            getSource().getResources().getColor(R.color.done));
+		   enableOthers();
 			if (activ != null && activ instanceof SitUpActiv) {
 				createShareDialog(stepsSitups, "SitUps");
 			}
@@ -118,7 +119,7 @@ public abstract class SportActiv extends BroadcastReceiver {
 		ArrayList<SportActiv> sportActivs2 = context.getSportActivs();
 		for (SportActiv sportActiv : sportActivs2) {
 			if (sportActiv != this) {
-				sportActiv.disable();
+				sportActiv.enable();
 			}
 		}
 		ClickSportActiv.setActive(true);
@@ -126,8 +127,11 @@ public abstract class SportActiv extends BroadcastReceiver {
 	}
 
 	private void enable() {
-		source.setBackgroundColor(getSource().getResources().getColor(
-				R.color.standart));
+		if (progess <100)
+      {
+         source.setBackgroundColor(getSource().getResources().getColor(
+            R.color.standart));
+      }
 	}
 
 	public abstract void start(View source);
@@ -138,6 +142,8 @@ public abstract class SportActiv extends BroadcastReceiver {
 
 	public void setSource(View source) {
 		this.source = source;
+		source.setBackgroundColor(getSource().getResources().getColor(
+         R.color.standart));
 	}
 
 	public SportActiv getSportActivByHash(int hashcode) {
@@ -148,5 +154,15 @@ public abstract class SportActiv extends BroadcastReceiver {
 		}
 		return null;
 	}
+
+   public int getProgess()
+   {
+      return progess;
+   }
+
+   public void setProgess(int progess)
+   {
+      this.progess = progess;
+   }
 
 }

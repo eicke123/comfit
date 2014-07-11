@@ -74,7 +74,7 @@
 
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name=".SportActivity" >
+        <activity android:name=".SportActivity" android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".PersonalDataActivity"

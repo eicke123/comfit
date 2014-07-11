@@ -4,4 +4,5 @@
     <color name="pressed">#000f4e</color>
     <color name="standart">#000000</color>
     <color name="disabled">#848484</color>
+    <color name="text">#d4d4d4</color>
 </resources>
