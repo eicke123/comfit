@@ -45,7 +45,6 @@ public abstract class SportActiv extends BroadcastReceiver {
 
 	public void updateProgress(int percent, int stepsSitups, SportActiv activ) {
 		this.setProgess(percent);
-		Log.d("de.comfit", "update: " + percent);
 		ProgressBar p = (ProgressBar) getSource().findViewById(
 				R.id.stepactivprogress);
 		p.setProgress(getProgess());
@@ -109,6 +108,7 @@ public abstract class SportActiv extends BroadcastReceiver {
 	public abstract int getMinWorkoutSize();
 	public abstract int getMaxWorkoutSize();
 	public abstract void setWorkoutSize(int size);
+	public abstract int getWorkoutSize();
 
 	public void setIndex(int index) {
 		this.index = index;

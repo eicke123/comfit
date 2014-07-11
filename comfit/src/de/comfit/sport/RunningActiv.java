@@ -9,6 +9,7 @@ import de.comfit.StepService;
 public class RunningActiv extends SportActiv {
 	public static final int CAL_PER_STEP = 1;
 	private int steps;
+	private int percent;
 
 	public RunningActiv(SportActivity context) {
 		super(context);
@@ -34,6 +35,13 @@ public class RunningActiv extends SportActiv {
 		this.steps = steps;
 	}
 
+	public int getPercent() {
+		return percent;
+	}
+
+	public void setPercent(int percent) {
+		this.percent = percent;
+	}
 
 	@Override
 	public double getCalStep(double weight) {
@@ -46,11 +54,9 @@ public class RunningActiv extends SportActiv {
 		// TODO Auto-generated method stub
 		this.setSource(source);
 		disableOthers();
-		setSteps(5);
 		start();
 	}
 
-	// TODO call right updateProgress Method and update progressbar
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		SportActiv activ = super.getSportActivByHash(intent.getIntExtra(
@@ -69,7 +75,7 @@ public class RunningActiv extends SportActiv {
 	@Override
 	public int getMaxWorkoutSize() {
 		// TODO Auto-generated method stub
-		return 10000;
+		return 1000;
 	}
 	
 	@Override
@@ -90,4 +96,11 @@ public class RunningActiv extends SportActiv {
       // TODO Auto-generated method stub
       return "running "  + steps;
    }
+	
+	@Override
+	public int getWorkoutSize() {
+		// TODO Auto-generated method stub
+		return steps;
+	}
+
 }

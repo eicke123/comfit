@@ -78,6 +78,12 @@ public class SitUpActiv extends SportActiv {
 		// TODO Auto-generated method stub
 		situps = size;
 	}
+	
+	@Override
+	public int getWorkoutSize() {
+		// TODO Auto-generated method stub
+		return situps;
+	}
 
    @Override
    public String getLabel()

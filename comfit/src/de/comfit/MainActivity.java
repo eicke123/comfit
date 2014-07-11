@@ -81,8 +81,16 @@ public class MainActivity extends Activity {
 	 * Called when start button was clicked
 	 */
 	public void onClickStartWorkout(View view) {
+		final TextView textView = (TextView) findViewById(R.id.editText1);
+
 		Intent intent = new Intent(this, SportActivity.class);
-		startActivity(intent);
+		if ("".equals(textView.getText().toString())) {
+			
+		}
+		else {
+			intent.putExtra("caloriesToBurn", Integer.valueOf(textView.getText().toString()));
+			startActivity(intent);
+		}
 	}
 
 	/*

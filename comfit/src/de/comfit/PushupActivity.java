@@ -81,7 +81,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 
 		// bind views to variables
 		pushupCounterTextView = (TextView) findViewById(R.id.textView1);
-		pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps);
+		pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps+"/"+pushupToDo);
 
 		buzz = (TextView) findViewById(R.id.textView2);
 		buzz.setVisibility(0);
@@ -275,11 +275,11 @@ public class PushupActivity extends Activity implements SensorEventListener,
 	 */
 	private void setPushupCounterLabel() {
 		if (toggled)
-			buzz.setText("Liegestütz-Counter: " + pushUps + "\n"
+			buzz.setText("Liegestütz-Counter: " + pushUps + "/"+pushupToDo+"\n"
 					+ burnedCalories(70.0) + " kcal");
 		else
 			pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps
-					+ "\n" + burnedCalories(70.0) + " kcal");
+					+ "/"+pushupToDo+"\n" + burnedCalories(70.0) + " kcal");
 	}
 
 	/*
@@ -306,7 +306,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 		i.putExtra("progress", pushUps);
 		i.putExtra("hashcode", source);
 		setResult(0, i);
+		
 		super.finish();
-
 	}
 }

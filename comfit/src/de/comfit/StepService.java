@@ -46,7 +46,6 @@ public class StepService extends Service implements SensorEventListener {
 			schritteZuMachen = intent.getIntExtra("schritte", 1);
 			sourceHash = intent.getIntExtra("hashcode", 0);
 			init();
-			Log.d("de.comfit", "start");
 		}
 		return Service.START_STICKY;
 	}
@@ -77,7 +76,6 @@ public class StepService extends Service implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
 		if (stepsCachedBySensor == -1)
 			stepsCachedBySensor = (int) Math.round(event.values[0]);
 		steps = (int) Math.round(event.values[0]);

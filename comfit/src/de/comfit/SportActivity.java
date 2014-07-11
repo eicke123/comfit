@@ -25,7 +25,8 @@ public class SportActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activitys);
 
-		sportActivs = generateActivitys(5000);
+		int caloriesToBurn = getIntent().getIntExtra("caloriesToBurn", 100);
+		sportActivs = generateActivitys(caloriesToBurn);
 		addViewsForActivitys(sportActivs);
 	}
 
@@ -36,9 +37,9 @@ public class SportActivity extends Activity {
 		for (final SportActiv sportActiv : generateActivitys) {
 			sportActiv.setIndex(activitys.getChildCount());
 			if (sportActiv instanceof RunningActiv) {
-				createRunningActivity(activitys, li, sportActiv);
+				createRunningActivity(activitys, li, sportActiv, sportActiv.getWorkoutSize());
 			} else if (sportActiv instanceof PushUpActiv) {
-				createPushupActivity(activitys, li, sportActiv);
+				createPushupActivity(activitys, li, sportActiv, sportActiv.getWorkoutSize());
 			} else if (sportActiv instanceof SitUpActiv) {
 				SitUpActiv run = (SitUpActiv) sportActiv;
 				
@@ -46,7 +47,7 @@ public class SportActivity extends Activity {
 						R.layout.situpactivity, null);
 
 				TextView text = (TextView) row.findViewById(R.id.text);
-				text.setText("Make situps");
+				text.setText("Make " + sportActiv.getWorkoutSize() + " situps");
 				registerListensers(activitys, run, row);
 				sportActiv.setSource(row);
 				activitys.addView(row);
@@ -56,26 +57,26 @@ public class SportActivity extends Activity {
 	}
 
 	private void createPushupActivity(final LinearLayout activitys,
-			LayoutInflater li, final SportActiv sportActiv) {
+			LayoutInflater li, final SportActiv sportActiv, int toDo) {
 		PushUpActiv run = (PushUpActiv) sportActiv;
 		final LinearLayout row = (LinearLayout) li.inflate(
 				R.layout.pushupactivity, null);
 
 		TextView text = (TextView) row.findViewById(R.id.text);
-		text.setText("Make pushups");
+		text.setText("Make " + toDo + " pushups");
 		registerListensers(activitys, run, row);
 		sportActiv.setSource(row);
 		activitys.addView(row);
 	}
 
 	private void createRunningActivity(final LinearLayout activitys,
-			LayoutInflater li, final SportActiv sportActiv) {
+			LayoutInflater li, final SportActiv sportActiv, int toDo) {
 		RunningActiv run = (RunningActiv) sportActiv;
 		final LinearLayout row = (LinearLayout) li.inflate(
 				R.layout.stepasctivity, null);
 
 		TextView text = (TextView) row.findViewById(R.id.text);
-		text.setText("Now run " + 100 + "steps");
+		text.setText("Now run " + toDo + " steps");
 		registerListensers(activitys, run, row);
 		sportActiv.setSource(row);
 		activitys.addView(row);
@@ -112,11 +113,11 @@ public class SportActivity extends Activity {
 						getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
 				// get user name
-				double weight = Double.valueOf((sharedPref.getString(getString(R.string.name), "75.0")));
+				double weight = Double.valueOf((sharedPref.getString(getString(R.string.weight), "75.0")));
 				
 				int toDo = ac.getMinWorkoutSize() + (int)(Math.random()*ac.getMaxWorkoutSize());
 				cal -= toDo * ac.getCalStep(weight);
-				
+
 				ac.setWorkoutSize(toDo);
 				sportActivs.add(ac);
 			} catch (InstantiationException e) {

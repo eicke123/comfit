@@ -47,7 +47,7 @@ public class PushUpActiv extends SportActiv {
 				"hashcode", 0));
 		int pushupsDone = intent.getIntExtra("pushups", 1);
 		activ.updateProgress(
-				pushupsDone * 100 / ((PushUpActiv) activ).getPushups(), 0, activ);
+				pushupsDone * 100 / ((PushUpActiv) activ).getPushups(), pushupsDone, activ);
 	}
 
 	public int getPushups() {
@@ -76,6 +76,7 @@ public class PushUpActiv extends SportActiv {
 		pushups = size;
 	}
 
+<<<<<<< Updated upstream
    @Override
    public String getLabel()
    {
@@ -83,4 +84,11 @@ public class PushUpActiv extends SportActiv {
       return "pushup";
    }
 
+=======
+	@Override
+	public int getWorkoutSize() {
+		// TODO Auto-generated method stub
+		return pushups;
+	}
+>>>>>>> Stashed changes
 }
