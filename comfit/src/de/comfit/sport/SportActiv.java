@@ -57,19 +57,14 @@ public abstract class SportActiv extends BroadcastReceiver {
 		   if (workoutItem.getGraphData() == null)
          {
 		      Long startTime = data.keySet().iterator().next();
-		      
-		      
-		      
-		      
-		      
-            int [][] d =  new int[data.size()][2];
+		      int [][] d =  new int[data.size()][2];
             int i = 0;
             for (Entry<Long, Long> da : data.entrySet())
             {
                d[i][0] = (int) (da.getKey() -startTime);
                d[i][1] = da.getValue().intValue();
             }
-            
+            workoutItem.setGraphData(d);
          }
 		   
 		   getSource().setBackgroundColor(
@@ -199,6 +194,11 @@ public abstract class SportActiv extends BroadcastReceiver {
    public void setProgess(int progess)
    {
       this.progess = progess;
+   }
+   
+   public WorkoutItem getWorkoutItem()
+   {
+      return workoutItem;
    }
 
 }

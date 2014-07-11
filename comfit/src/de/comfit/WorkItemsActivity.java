@@ -41,7 +41,7 @@ public class WorkItemsActivity extends Activity {
 		// Load data from file and show every item in list view
 		WorkoutData[] data = loadWorkoutData();
 		if (data != null && dataPosition != -1) {
-			WorkoutItem[] items = data[dataPosition].getWorkoutItems();
+			final WorkoutItem[] items = data[dataPosition].getWorkoutItems();
 			String[] values = new String[items.length];
 			for (int i = 0; i < items.length; i++) {
 				String line = "Workout type: ";
@@ -63,11 +63,14 @@ public class WorkItemsActivity extends Activity {
 
 				public void onItemClick(AdapterView<?> parent, final View view,
 						int itemPosition, long id) {
-					final String item = (String) parent
-							.getItemAtPosition(itemPosition);
-					intent.putExtra("dataPosition", dataPosition);
-					intent.putExtra("itemPosition", itemPosition);
-					startActivity(intent);
+					if (items[itemPosition].getGraphData() != null)
+               {
+                  final String item = (String) parent
+                     .getItemAtPosition(itemPosition);
+                  intent.putExtra("dataPosition", dataPosition);
+                  intent.putExtra("itemPosition", itemPosition);
+                  startActivity(intent);
+               }
 				}
 
 			});

@@ -37,7 +37,6 @@ public class MainActivity extends Activity {
 		super.onResume();
 		setWelcomeMessage();
 		createListView();
-		saveWorkoutData();
 	}
 
 	@Override
@@ -114,7 +113,7 @@ public class MainActivity extends Activity {
 	private void createListView() {
 		final ListView listview = (ListView) findViewById(R.id.list1);
 		// Load data from file and show every item in list view
-		WorkoutData[] data = loadWorkoutData();
+		WorkoutData[] data = new WorkoutHistory().loadWorkoutData(this);
 		if (data != null) {
 			// TODO: use workout history data from file instead of dummy data
 			String[] values = new String[data.length];
@@ -146,53 +145,5 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	/*
-	 * Load workout data from history file
-	 */
-	private WorkoutData[] loadWorkoutData() {
-		WorkoutData[] data = null;
-		try {
-			FileInputStream fin = openFileInput(getString(R.string.history_file_name));
-			ObjectInputStream ois = new ObjectInputStream(fin);
-			data = (WorkoutData[]) ois.readObject();
-			ois.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return data;
-	}
-
-	/*
-	 * Saves workout data provided by SportActivity to file
-	 */
-	private void saveWorkoutData() {
-		WorkoutHistory history = new WorkoutHistory(); // TODO: data has to be
-														// retrieved from SportActivity
-		
-		history.setData(WorkoutHistoryCreater.getTestData());
-
-		if (history != null) {
-			try {
-				FileOutputStream fos = openFileOutput(
-						getString(R.string.history_file_name),
-						Context.MODE_PRIVATE);
-				ObjectOutputStream os = new ObjectOutputStream(fos);
-				history.writeToFile(os);
-				os.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+	
 }
