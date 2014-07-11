@@ -54,6 +54,8 @@ public class PushupActivity extends Activity implements SensorEventListener,
 	 * reloaded.
 	 */
 	private double burnedCalories;
+	
+	private int source;
 
 	/*
 	 * On create the proximity sensor is activated. values and views are
@@ -66,6 +68,8 @@ public class PushupActivity extends Activity implements SensorEventListener,
 
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+		
+		source = getIntent().getIntExtra("hashcode", 0);
 
 		// get number of iterations
 		pushupToDo = getIntent().getIntExtra("count", 1);
@@ -115,7 +119,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 				increaseDonePushups();
 
 				setPushupCounterLabel();
-				
+
 			}
 
 		});
@@ -124,44 +128,46 @@ public class PushupActivity extends Activity implements SensorEventListener,
 
 	private void createShareDialog() {
 		// TODO Auto-generated method stub
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				this);
- 
-			// set title
-			alertDialogBuilder.setTitle("Share on Twitter?");
- 
-			// set dialog message
-			alertDialogBuilder
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		// set title
+		alertDialogBuilder.setTitle("Share on Twitter?");
+
+		// set dialog message
+		alertDialogBuilder
 				.setCancelable(false)
-				.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
-						Intent i= new Intent(getApplicationContext(), TweetActivity.class);
-						i.putExtra("message", "Yuhu ... ich habe "+pushUps+" PushUp(s) gemacht ;)");
-						startActivity(i);
-						finish();
-						dialog.dismiss();
-					}
-				  })
-				.setNegativeButton("No",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								Intent i = new Intent(getApplicationContext(),
+										TweetActivity.class);
+								i.putExtra("message", "Yuhu ... ich habe "
+										+ pushUps + " PushUp(s) gemacht ;)");
+								startActivity(i);
+								finish();
+								dialog.dismiss();
+							}
+						})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
 						// if this button is clicked, just close
 						// the dialog box and do nothing
 						dialog.dismiss();
 						finish();
 					}
 				});
- 
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
- 
-				// show it
-				try {
-				      alertDialog.show();
-				 } catch(Exception e){
-				   Log.d("de.comfit", "Exception");
-				 }
-			}
-	
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		try {
+			alertDialog.show();
+		} catch (Exception e) {
+			Log.d("de.comfit", "Exception");
+		}
+	}
+
 	/*
 	 * Register listener for imageButton
 	 */
@@ -299,6 +305,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 		// TODO Auto-generated method stub
 		Intent i = new Intent();
 		i.putExtra("progress", pushUps);
+		i.putExtra("hashcode", source);
 		setResult(0, i);
 		super.finish();
 

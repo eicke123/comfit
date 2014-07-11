@@ -6,20 +6,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
-import de.comfit.history.WorkoutData;
-import de.comfit.history.WorkoutItem;
-import de.comfit.util.StableArrayAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import de.comfit.history.WorkoutData;
+import de.comfit.history.WorkoutItem;
+import de.comfit.util.StableArrayAdapter;
 
 public class WorkItemsActivity extends Activity {
-	
+
 	private int dataPosition = -1;
 
 	@Override
@@ -29,12 +27,12 @@ public class WorkItemsActivity extends Activity {
 		Bundle bundle = getIntent().getExtras();
 		dataPosition = bundle.getInt("position", dataPosition);
 	}
-	
-	public void onResume(){
+
+	public void onResume() {
 		super.onResume();
 		createListView();
 	}
-	
+
 	/*
 	 * Creates a list view which shows the workouts saved in the history file
 	 */
