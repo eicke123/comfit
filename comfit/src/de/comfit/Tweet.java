@@ -7,6 +7,11 @@ import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import android.os.AsyncTask;
 
+/**
+ * Class for sharing a Message on Twitter
+ * @author Comtec
+ *
+ */
 public class Tweet extends AsyncTask<String, Object, Object> {
 
 	@Override
