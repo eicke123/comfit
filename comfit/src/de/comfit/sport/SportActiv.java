@@ -22,15 +22,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+/**
+ * Abstract class SportActiv
+ * 
+ * @author hcohm
+ *
+ */
 public abstract class SportActiv extends BroadcastReceiver {
 	protected SportActivity context;
 	protected int index;
 	private int progess;
 	private View source;
+	
 	public static final HashSet<SportActiv> sportActivs = new HashSet<SportActiv>();
-   private WorkoutItem workoutItem;
-   private LinkedHashMap<Long, Long> data;
+	private WorkoutItem workoutItem;
+	private LinkedHashMap<Long, Long> data;
 
+	public abstract String getLabel();
+	public abstract double getCalStep(double weight);
+	public abstract int getMinWorkoutSize();
+	public abstract int getMaxWorkoutSize();
+	public abstract void setWorkoutSize(int size);
+	public abstract int getWorkoutSize();
+	public abstract void start(View source);
+
+	/*
+	 * Initialize variables
+	 */
 	public SportActiv(SportActivity context) {
 		this();
 		this.context = context;
@@ -38,13 +56,20 @@ public abstract class SportActiv extends BroadcastReceiver {
 		workoutItem.setLabel(getLabel());
 		data = new LinkedHashMap<Long, Long>();
 	}
-
-	public abstract String getLabel();
-
-   public SportActiv() {
+	
+	/*
+	 * Default constructor
+	 */
+	public SportActiv() {
 		sportActivs.add(this);
 	}
 
+	/**
+	 * Method to update the progressbar of a list item.
+	 * @param percent - percentage of completed actions in activity
+	 * @param stepsSitups - the final count, to share on twitter
+	 * @param activ - right object belonging to the list item
+	 */
 	public void updateProgress(int percent, int stepsSitups, SportActiv activ) {
 		this.setProgess(percent);
 		ProgressBar p = (ProgressBar) getSource().findViewById(
@@ -79,6 +104,12 @@ public abstract class SportActiv extends BroadcastReceiver {
 		}
 	}
 
+	/**
+	 * Method to create a share dialog to share done activities to twitter.
+	 * Done by simple AlertDialog with two buttons
+	 * @param stepsSitups
+	 * @param text
+	 */
 	private void createShareDialog(final int stepsSitups, final String text) {
 		// TODO Auto-generated method stub
 
@@ -119,17 +150,15 @@ public abstract class SportActiv extends BroadcastReceiver {
 		alertDialog.show();
 	}
 
-	public abstract double getCalStep(double weight);
-	public abstract int getMinWorkoutSize();
-	public abstract int getMaxWorkoutSize();
-	public abstract void setWorkoutSize(int size);
-	public abstract int getWorkoutSize();
-
+	
 	public void setIndex(int index) {
 		this.index = index;
 
 	}
 
+	/*
+	 * Disable all list items except this
+	 */
 	public void disableOthers() {
 		ArrayList<SportActiv> sportActivs2 = context.getSportActivs();
 		for (SportActiv sportActiv : sportActivs2) {
@@ -141,11 +170,17 @@ public abstract class SportActiv extends BroadcastReceiver {
 		;
 	}
 
+	/*
+	 * disable done activity
+	 */
 	private void disable() {
 		source.setBackgroundColor(getSource().getResources().getColor(
 				R.color.disabled));
 	}
 
+	/*
+	 * Enable all list items except this
+	 */
 	public void enableOthers() {
 		ArrayList<SportActiv> sportActivs2 = context.getSportActivs();
 		for (SportActiv sportActiv : sportActivs2) {
@@ -157,6 +192,9 @@ public abstract class SportActiv extends BroadcastReceiver {
 		;
 	}
 
+	/*
+	 * Enables list items if activity is not finished
+	 */
 	private void enable() {
 		if (progess <100)
       {
@@ -165,8 +203,11 @@ public abstract class SportActiv extends BroadcastReceiver {
       }
 	}
 
-	public abstract void start(View source);
 
+	/*
+	 * Getter and Setter for source
+	 * source is previous calling activity
+	 */
 	public View getSource() {
 		return source;
 	}
@@ -177,6 +218,11 @@ public abstract class SportActiv extends BroadcastReceiver {
          R.color.standart));
 	}
 
+	/**
+	 * Searches the right SportActiv object in array
+	 * @param hashcode
+	 * @return hashcode from object
+	 */
 	public SportActiv getSportActivByHash(int hashcode) {
 		for (SportActiv a : sportActivs) {
 			if (a.hashCode() == hashcode) {
@@ -185,20 +231,18 @@ public abstract class SportActiv extends BroadcastReceiver {
 		}
 		return null;
 	}
-
-   public int getProgess()
-   {
-      return progess;
-   }
-
-   public void setProgess(int progess)
-   {
-      this.progess = progess;
-   }
-   
-   public WorkoutItem getWorkoutItem()
-   {
-      return workoutItem;
-   }
+	
+	/*
+	 * Getter & Setter for progress
+	 */
+	public int getProgess()
+	{
+		return progess;
+	}
+	
+	public void setProgess(int progess)
+	{
+		this.progess = progess;
+	}
 
 }

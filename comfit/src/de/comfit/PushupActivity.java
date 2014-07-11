@@ -28,8 +28,7 @@ import android.widget.Toast;
  * @author hcohm
  * 
  */
-public class PushupActivity extends Activity implements SensorEventListener,
-		SportsactivityInterface {
+public class PushupActivity extends Activity implements SensorEventListener {
 
 	/*
 	 * variables for pushup counter, toggleButton, toggled value and imageButton
@@ -81,7 +80,7 @@ public class PushupActivity extends Activity implements SensorEventListener,
 
 		// bind views to variables
 		pushupCounterTextView = (TextView) findViewById(R.id.textView1);
-		pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps+"/"+pushupToDo);
+		pushupCounterTextView.setText("Pushup-Counter: " + pushUps+"/"+pushupToDo);
 
 		buzz = (TextView) findViewById(R.id.textView2);
 		buzz.setVisibility(0);
@@ -275,10 +274,10 @@ public class PushupActivity extends Activity implements SensorEventListener,
 	 */
 	private void setPushupCounterLabel() {
 		if (toggled)
-			buzz.setText("Liegestütz-Counter: " + pushUps + "/"+pushupToDo+"\n"
+			buzz.setText("Pushup-Counter: " + pushUps + "/"+pushupToDo+"\n"
 					+ burnedCalories(70.0) + " kcal");
 		else
-			pushupCounterTextView.setText("Liegestütz-Counter: " + pushUps
+			pushupCounterTextView.setText("Pushup-Counter: " + pushUps
 					+ "/"+pushupToDo+"\n" + burnedCalories(70.0) + " kcal");
 	}
 

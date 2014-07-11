@@ -46,7 +46,7 @@ public class RunningActiv extends SportActiv {
 	@Override
 	public double getCalStep(double weight) {
 		// TODO Auto-generated method stub
-		return 0.5;
+		return weight;
 	}
 
 	@Override

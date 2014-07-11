@@ -6,6 +6,9 @@ import android.view.View;
 import de.comfit.SitUpService;
 import de.comfit.SportActivity;
 
+/**
+ * Class to hold methods for situp activity
+ */
 public class SitUpActiv extends SportActiv {
 	public static final int CAL_PER_SITUP = 1;
 	private int situps;
