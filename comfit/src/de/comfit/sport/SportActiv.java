@@ -231,18 +231,21 @@ public abstract class SportActiv extends BroadcastReceiver {
 		}
 		return null;
 	}
-	
-	/*
-	 * Getter & Setter for progress
-	 */
-	public int getProgess()
-	{
-		return progess;
-	}
-	
-	public void setProgess(int progess)
-	{
-		this.progess = progess;
-	}
+
+
+   public int getProgess()
+   {
+      return progess;
+   }
+
+   public void setProgess(int progess)
+   {
+      this.progess = progess;
+   }
+   
+   public WorkoutItem getWorkoutItem()
+   {
+      return workoutItem; 
+   }
 
 }
