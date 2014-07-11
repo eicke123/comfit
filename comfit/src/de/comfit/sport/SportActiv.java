@@ -76,18 +76,18 @@ public abstract class SportActiv extends BroadcastReceiver {
 				R.id.stepactivprogress);
 		p.setProgress(getProgess());
 		
-		data.put(System.currentTimeMillis(), (long) percent);
+		data.put( (long) percent,System.currentTimeMillis());
 		
 		if (percent == 100) {
 		   if (workoutItem.getGraphData() == null)
          {
-		      Long startTime = data.keySet().iterator().next();
+		      Long startTime = data.values().iterator().next();
 		      int [][] d =  new int[data.size()][2];
             int i = 0;
             for (Entry<Long, Long> da : data.entrySet())
             {
-               d[i][0] = (int) (da.getKey() -startTime);
-               d[i][1] = da.getValue().intValue();
+               d[i][0] = (int) (da.getValue() -startTime)/1000;
+               d[i][1] = da.getKey().intValue();
             }
             workoutItem.setGraphData(d);
          }
