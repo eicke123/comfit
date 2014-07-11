@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import de.comfit.history.WorkoutData;
 import de.comfit.history.WorkoutHistory;
+import de.comfit.history.WorkoutHistoryCreater;
 import de.comfit.history.WorkoutItem;
 import de.comfit.util.StableArrayAdapter;
 
@@ -110,13 +111,7 @@ public class MainActivity extends Activity {
 			// TODO: use workout history data from file instead of dummy data
 			String[] values = new String[data.length];
 			for (int i = 0; i < data.length; i++) {
-				String line = "Workout id: ";
-				line += String.valueOf(data[i].getId());
-				line += ", Workout calorie goal: ";
-				line += data[i].getCaloriesGoalInTotal();
-				line += ", Workout calories: ";
-				line += data[i].getCaloriesInTotal();
-				values[i] = line;
+				values[i] = String.valueOf(data[i].getLabel());
 			}
 
 			final ArrayList<String> list = new ArrayList<String>();
@@ -171,20 +166,9 @@ public class MainActivity extends Activity {
 	 */
 	private void saveWorkoutData() {
 		WorkoutHistory history = new WorkoutHistory(); // TODO: data has to be
-														// retrieved
-		// from SportActivity
-		// TODO: delete test data
-		WorkoutData workoutData = new WorkoutData();
-		WorkoutItem workoutItem = new WorkoutItem();
-		workoutItem.setCalories(10);
-		workoutItem.setCaloriesGoal(20);
-		workoutItem.setDurationInSeconds(100);
-		workoutItem.setWorkoutType("Pushups");
-		workoutData.setActivityTypes(new WorkoutItem[] { workoutItem });
-		workoutData.setId("TestID");
-		workoutData.setCaloriesGoalInTotal(1000);
-		workoutData.setCaloriesInTotal(1000);
-		history.setData(new WorkoutData[] { workoutData });
+														// retrieved from SportActivity
+		
+		history.setData(WorkoutHistoryCreater.getTestData());
 
 		if (history != null) {
 			try {

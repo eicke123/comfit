@@ -41,11 +41,11 @@ public class WorkItemsActivity extends Activity {
 		// Load data from file and show every item in list view
 		WorkoutData[] data = loadWorkoutData();
 		if (data != null && dataPosition != -1) {
-			WorkoutItem[] items = data[dataPosition].getActivityTypes();
+			WorkoutItem[] items = data[dataPosition].getWorkoutItems();
 			String[] values = new String[items.length];
 			for (int i = 0; i < items.length; i++) {
 				String line = "Workout type: ";
-				line += items[i].getWorkoutType();
+				line += items[i].getLabel();
 				values[i] = line;
 			}
 

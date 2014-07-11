@@ -10,19 +10,19 @@ public class WorkoutData implements Serializable {
 	private int caloriesGoalInTotal;
 	private int durationInSeconds;
 
-	public WorkoutItem[] getActivityTypes() {
+	public WorkoutItem[] getWorkoutItems() {
 		return workoutItems;
 	}
 
-	public void setActivityTypes(WorkoutItem[] activityTypes) {
-		this.workoutItems = activityTypes;
+	public void setWorkoutItems(WorkoutItem[] workoutItems) {
+		this.workoutItems = workoutItems;
 	}
 
-	public String getId() {
+	public String getLabel() {
 		return label;
 	}
 
-	public void setId(String id) {
+	public void setLabel(String id) {
 		this.label = id;
 	}
 

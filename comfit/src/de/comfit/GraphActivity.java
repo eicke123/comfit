@@ -40,11 +40,12 @@ public class GraphActivity extends Activity {
 		// init example series data
 		WorkoutData[] data = loadWorkoutData();
 		if (data != null && dataPosition != -1 && itemPosition != -1) {
-			WorkoutItem[] items = data[dataPosition].getActivityTypes();
-			GraphViewData[] graphViewData = new GraphViewData[items.length];
-			for (int i = 0; i < items.length; i++) {
-				graphViewData[i] = new GraphViewData(items[i].getCalories(),
-						items[i].getDurationInSeconds());
+			WorkoutItem item = data[dataPosition].getWorkoutItems()[itemPosition];
+			int graphData[][] = item.getGraphData();
+			GraphViewData[] graphViewData = new GraphViewData[graphData.length];
+			for (int i = 0; i < graphData.length; i++) {
+				graphViewData[i] = new GraphViewData(graphData[i][0],
+						graphData[i][1]);
 			}
 
 			GraphViewSeries exampleSeries = new GraphViewSeries(graphViewData);

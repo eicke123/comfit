@@ -2,17 +2,18 @@ package de.comfit.history;
 
 import java.io.Serializable;
 
-public/* abstract */class WorkoutItem implements Serializable {
+public class WorkoutItem implements Serializable {
 	private String label;
 	private long durationInSeconds;
 	private int calories;
 	private int caloriesGoal;
+	private int[][] graphData;
 
-	public String getWorkoutType() {
+	public String getLabel() {
 		return label;
 	}
 
-	public void setWorkoutType(String workoutType) {
+	public void setLabel(String workoutType) {
 		this.label = workoutType;
 	}
 
@@ -38,5 +39,13 @@ public/* abstract */class WorkoutItem implements Serializable {
 
 	public void setCaloriesGoal(int caloriesGoal) {
 		this.caloriesGoal = caloriesGoal;
+	}
+
+	public int[][] getGraphData() {
+		return graphData;
+	}
+
+	public void setGraphData(int[][] graphData) {
+		this.graphData = graphData;
 	}
 }
