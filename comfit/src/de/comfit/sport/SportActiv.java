@@ -3,6 +3,8 @@ package de.comfit.sport;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import de.comfit.ClickSportActiv;
 import de.comfit.R;
@@ -27,14 +29,14 @@ public abstract class SportActiv extends BroadcastReceiver {
 	private View source;
 	public static final HashSet<SportActiv> sportActivs = new HashSet<SportActiv>();
    private WorkoutItem workoutItem;
-   private HashMap<Long, Long> data;
+   private LinkedHashMap<Long, Long> data;
 
 	public SportActiv(SportActivity context) {
 		this();
 		this.context = context;
 		workoutItem  = new WorkoutItem();
 		workoutItem.setLabel(getLabel());
-		data = new HashMap<Long, Long>();
+		data = new LinkedHashMap<Long, Long>();
 	}
 
 	public abstract String getLabel();
@@ -52,6 +54,24 @@ public abstract class SportActiv extends BroadcastReceiver {
 		data.put(System.currentTimeMillis(), (long) percent);
 		
 		if (percent == 100) {
+		   if (workoutItem.getGraphData() == null)
+         {
+		      Long startTime = data.keySet().iterator().next();
+		      
+		      
+		      
+		      
+		      
+            int [][] d =  new int[data.size()][2];
+            int i = 0;
+            for (Entry<Long, Long> da : data.entrySet())
+            {
+               d[i][0] = (int) (da.getKey() -startTime);
+               d[i][1] = da.getValue().intValue();
+            }
+            
+         }
+		   
 		   getSource().setBackgroundColor(
             getSource().getResources().getColor(R.color.done));
 		   enableOthers();
