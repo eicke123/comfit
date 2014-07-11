@@ -1,13 +1,8 @@
 package de.comfit;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
@@ -204,23 +199,21 @@ public class SportActivity extends Activity
       WorkoutData[] oldData = workoutHistory.getData();
       WorkoutData[] newData = new WorkoutData[oldData.length + 1];
       System.arraycopy(oldData, 0, newData, 0, oldData.length);
-      
+
       WorkoutData workoutData = new WorkoutData();
-      
+
       int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
       int minute = Calendar.getInstance().get(Calendar.MINUTE);
-      workoutData.setLabel(hour+":"+ minute + " workout");
-      WorkoutItem[] items =  new WorkoutItem[sportActivs.size()];
-      
-      
-      
+      workoutData.setLabel(hour + ":" + minute + " workout");
+      WorkoutItem[] items = new WorkoutItem[sportActivs.size()];
+
       for (int i = 0; i < items.length; i++)
       {
          items[i] = sportActivs.get(i).getWorkoutItem();
       }
-      
+
       workoutData.setWorkoutItems(items);
-      newData[newData.length-1] = workoutData;
+      newData[newData.length - 1] = workoutData;
       workoutHistory.setData(newData);
       workoutHistory.saveWorkoutData(this);
       System.out.println("--- save");

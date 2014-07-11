@@ -6,9 +6,8 @@ import de.comfit.sport.SportActiv;
 
 public class ClickSportActiv implements View.OnClickListener
 {
-   private static boolean active =true;
+   private static boolean active = true;
    private SportActiv sportActiv;
-   
 
    public ClickSportActiv(SportActiv sportActiv)
    {
@@ -18,7 +17,7 @@ public class ClickSportActiv implements View.OnClickListener
    @Override
    public void onClick(View v)
    {
-      if (isActive()&& sportActiv.getProgess() <100)
+      if (isActive() && sportActiv.getProgess() < 100)
       {
          v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
          this.sportActiv.start(v);

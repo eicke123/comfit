@@ -28,284 +28,322 @@ import android.widget.Toast;
  * @author hcohm
  * 
  */
-public class PushupActivity extends Activity implements SensorEventListener {
+public class PushupActivity extends Activity implements SensorEventListener
+{
 
-	/*
-	 * variables for pushup counter, toggleButton, toggled value and imageButton
-	 */
-	private int pushUps;
-	private ImageButton imageButton;
-	private Button toggleButton;
-	private Boolean toggled;
+   /*
+    * variables for pushup counter, toggleButton, toggled value and imageButton
+    */
+   private int pushUps;
+   private ImageButton imageButton;
+   private Button toggleButton;
+   private Boolean toggled;
 
-	private int pushupToDo;
-	private int progress;
+   private int pushupToDo;
+   private int progress;
 
-	/*
-	 * TextViews
-	 */
-	private TextView buzz;
-	private TextView pushupCounterTextView;
-	private TextView proximityLabel;
+   /*
+    * TextViews
+    */
+   private TextView buzz;
+   private TextView pushupCounterTextView;
+   private TextView proximityLabel;
 
-	/*
-	 * Save burned calories in this class. Will be reseted when the activity is
-	 * reloaded.
-	 */
-	private double burnedCalories;
-	
-	private int source;
+   /*
+    * Save burned calories in this class. Will be reseted when the activity is
+    * reloaded.
+    */
+   private double burnedCalories;
 
-	/*
-	 * On create the proximity sensor is activated. values and views are
-	 * initialized.
-	 */
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_pushup);
+   private int source;
 
-		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-		
-		source = getIntent().getIntExtra("hashcode", 0);
+   /*
+    * On create the proximity sensor is activated. values and views are
+    * initialized.
+    */
+   @Override
+   protected void onCreate(Bundle savedInstanceState)
+   {
+      super.onCreate(savedInstanceState);
+      setContentView(R.layout.activity_pushup);
 
-		// get number of iterations
-		pushupToDo = getIntent().getIntExtra("count", 1);
+      mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+      mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 
-		// set initial values
-		pushUps = 0;
-		progress = 0;
-		toggled = false;
+      source = getIntent().getIntExtra("hashcode", 0);
 
-		// bind views to variables
-		pushupCounterTextView = (TextView) findViewById(R.id.textView1);
-		pushupCounterTextView.setText("Pushup-Counter: " + pushUps+"/"+pushupToDo);
+      // get number of iterations
+      pushupToDo = getIntent().getIntExtra("count", 1);
 
-		buzz = (TextView) findViewById(R.id.textView2);
-		buzz.setVisibility(0);
+      // set initial values
+      pushUps = 0;
+      progress = 0;
+      toggled = false;
 
-		proximityLabel = (TextView) findViewById(R.id.textView4);
-		proximityLabel.setVisibility(4);
+      // bind views to variables
+      pushupCounterTextView = (TextView) findViewById(R.id.textView1);
+      pushupCounterTextView.setText("Pushup-Counter: " + pushUps + "/" + pushupToDo);
 
-		pushupCounterTextView.setGravity(Gravity.CENTER);
-		buzz.setGravity(Gravity.CENTER);
-		proximityLabel.setGravity(Gravity.CENTER);
+      buzz = (TextView) findViewById(R.id.textView2);
+      buzz.setVisibility(0);
 
-		/*
-		 * add listeners to the text views
-		 */
-		addListenerOnToggleButton();
+      proximityLabel = (TextView) findViewById(R.id.textView4);
+      proximityLabel.setVisibility(4);
 
-		addListenerOnImageButton();
-	}
+      pushupCounterTextView.setGravity(Gravity.CENTER);
+      buzz.setGravity(Gravity.CENTER);
+      proximityLabel.setGravity(Gravity.CENTER);
 
-	/*
-	 * Register listener for imageButton
-	 */
-	private void addListenerOnImageButton() {
+      /*
+       * add listeners to the text views
+       */
+      addListenerOnToggleButton();
 
-		imageButton = (ImageButton) findViewById(R.id.imageButton1);
+      addListenerOnImageButton();
+   }
 
-		imageButton.setOnClickListener(new View.OnClickListener() {
+   /*
+    * Register listener for imageButton
+    */
+   private void addListenerOnImageButton()
+   {
 
-			@Override
-			public void onClick(View arg0) {
+      imageButton = (ImageButton) findViewById(R.id.imageButton1);
 
-				/*
-				 * update pushup counter and output label
-				 */
-				increaseDonePushups();
+      imageButton.setOnClickListener(new View.OnClickListener()
+      {
 
-				setPushupCounterLabel();
+         @Override
+         public void onClick(View arg0)
+         {
 
-			}
+            /*
+             * update pushup counter and output label
+             */
+            increaseDonePushups();
 
-		});
+            setPushupCounterLabel();
 
-	}
+         }
 
-	private void createShareDialog() {
-		// TODO Auto-generated method stub
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+      });
 
-		// set title
-		alertDialogBuilder.setTitle("Du hast die Challenge geschafft! \nShare on Twitter?");
+   }
 
-		// set dialog message
-		alertDialogBuilder
-				.setCancelable(false)
+   private void createShareDialog()
+   {
+      // TODO Auto-generated method stub
+      AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-				.setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
-						Intent i= new Intent(getApplicationContext(), TweetActivity.class);
-						i.putExtra("message", "Yuhu ... ich habe " +pushUps+ " PushUp(s) gemacht ;)");
-						startActivity(i);
-						finish();
-						dialog.dismiss();
-					}
-				  })
-				.setNegativeButton("No",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
+      // set title
+      alertDialogBuilder.setTitle("Du hast die Challenge geschafft! \nShare on Twitter?");
 
-						// if this button is clicked, just close
-						// the dialog box and do nothing
-						dialog.dismiss();
-						finish();
-					}
-				});
+      // set dialog message
+      alertDialogBuilder
+         .setCancelable(false)
 
-		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
+         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+         {
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
+               Intent i = new Intent(getApplicationContext(), TweetActivity.class);
+               i.putExtra("message", "Yuhu ... ich habe " + pushUps + " PushUp(s) gemacht ;)");
+               startActivity(i);
+               finish();
+               dialog.dismiss();
+            }
+         })
+         .setNegativeButton("No", new DialogInterface.OnClickListener()
+         {
+            @Override
+            public void onClick(DialogInterface dialog, int id)
+            {
 
-		// show it
-		try {
-			alertDialog.show();
-		} catch (Exception e) {
-			Log.d("de.comfit", "Exception");
-		}
-	}
+               // if this button is clicked, just close
+               // the dialog box and do nothing
+               dialog.dismiss();
+               finish();
+            }
+         });
 
-	/*
-	 * Register listener for imageButton
-	 */
-	private void addListenerOnToggleButton() {
+      // create alert dialog
+      AlertDialog alertDialog = alertDialogBuilder.create();
 
-		toggleButton = (Button) findViewById(R.id.toggleButton);
+      // show it
+      try
+      {
+         alertDialog.show();
+      }
+      catch (Exception e)
+      {
+         Log.d("de.comfit", "Exception");
+      }
+   }
 
-		/*
-		 * control two toggled states - buzz button - use of proximity sensor
-		 */
-		toggleButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
+   /*
+    * Register listener for imageButton
+    */
+   private void addListenerOnToggleButton()
+   {
 
-				// proximity sensor active
-				if (toggled) {
-					toggled = !toggled;
+      toggleButton = (Button) findViewById(R.id.toggleButton);
 
-					pushupCounterTextView.setVisibility(0);
-					imageButton.setVisibility(0);
+      /*
+       * control two toggled states - buzz button - use of proximity sensor
+       */
+      toggleButton.setOnClickListener(new View.OnClickListener()
+      {
+         @Override
+         public void onClick(View arg0)
+         {
 
-					proximityLabel.setVisibility(4);
-					setPushupCounterLabel();
+            // proximity sensor active
+            if (toggled)
+            {
+               toggled = !toggled;
 
-					buzz.setText("Buzz here");
-				}
-				// buzz button active
-				else {
-					toggled = !toggled;
+               pushupCounterTextView.setVisibility(0);
+               imageButton.setVisibility(0);
 
-					pushupCounterTextView.setVisibility(4);
-					imageButton.setVisibility(4);
+               proximityLabel.setVisibility(4);
+               setPushupCounterLabel();
 
-					proximityLabel.setVisibility(0);
-					setPushupCounterLabel();
-				}
-			}
+               buzz.setText("Buzz here");
+            }
+            // buzz button active
+            else
+            {
+               toggled = !toggled;
 
-		});
+               pushupCounterTextView.setVisibility(4);
+               imageButton.setVisibility(4);
 
-	}
+               proximityLabel.setVisibility(0);
+               setPushupCounterLabel();
+            }
+         }
 
-	/*
-	 * Getter for pushup counter
-	 */
-	public int getPushups() {
-		return pushUps;
-	}
+      });
 
-	/*
-	 * returns burnedCalories according to done pushups 70% of own weight is
-	 * pushed 9.81m/s earth acceleration 0.3m = 30cm distance from bottom to top
-	 * Joule / 4.1868 = Calories calories = bottom to top calories / 2 = top to
-	 * bottom
-	 */
-	public String burnedCalories(double weight) {
-		burnedCalories = ((weight * 0.7) * 9.81 * 0.3) / 4.1868;
-		burnedCalories = burnedCalories / 1000;
-		burnedCalories = burnedCalories + burnedCalories / 2;
-		DecimalFormat df = new DecimalFormat("#0.000");
-		String burned = df.format(burnedCalories * pushUps);
-		return burned;
-	}
+   }
 
-	/*
-	 * needed values and methods for sensor management
-	 */
-	private SensorManager mSensorManager;
-	private Sensor mSensor;
+   /*
+    * Getter for pushup counter
+    */
+   public int getPushups()
+   {
+      return pushUps;
+   }
 
-	// register listener on resume
-	protected void onResume() {
-		super.onResume();
-		mSensorManager.registerListener(this, mSensor,
-				SensorManager.SENSOR_DELAY_NORMAL);
-	}
+   /*
+    * returns burnedCalories according to done pushups 70% of own weight is
+    * pushed 9.81m/s earth acceleration 0.3m = 30cm distance from bottom to top
+    * Joule / 4.1868 = Calories calories = bottom to top calories / 2 = top to
+    * bottom
+    */
+   public String burnedCalories(double weight)
+   {
+      burnedCalories = ((weight * 0.7) * 9.81 * 0.3) / 4.1868;
+      burnedCalories = burnedCalories / 1000;
+      burnedCalories = burnedCalories + burnedCalories / 2;
+      DecimalFormat df = new DecimalFormat("#0.000");
+      String burned = df.format(burnedCalories * pushUps);
+      return burned;
+   }
 
-	// unregister listener on pause
-	protected void onPause() {
-		super.onPause();
-		mSensorManager.unregisterListener(this);
-		finish();
-	}
+   /*
+    * needed values and methods for sensor management
+    */
+   private SensorManager mSensorManager;
+   private Sensor mSensor;
 
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-	}
+   // register listener on resume
+   @Override
+   protected void onResume()
+   {
+      super.onResume();
+      mSensorManager.registerListener(this, mSensor,
+         SensorManager.SENSOR_DELAY_NORMAL);
+   }
 
-	public void onSensorChanged(SensorEvent event) {
-		float[] value = event.values;
+   // unregister listener on pause
+   @Override
+   protected void onPause()
+   {
+      super.onPause();
+      mSensorManager.unregisterListener(this);
+      finish();
+   }
 
-		if (value[0] > 1) {
-		} else {
-			/*
-			 * update counter label only when proximity sensor is active in
-			 * toggled state
-			 */
-			if (toggled) {
-				increaseDonePushups();
-				setPushupCounterLabel();
-			}
-		}
-	}
+   @Override
+   public void onAccuracyChanged(Sensor sensor, int accuracy)
+   {
+   }
 
-	/*
-	 * Set pushup counter labels
-	 */
-	private void setPushupCounterLabel() {
-		if (toggled)
-			buzz.setText("Pushup-Counter: " + pushUps + "/"+pushupToDo+"\n"
-					+ burnedCalories(70.0) + " kcal");
-		else
-			pushupCounterTextView.setText("Pushup-Counter: " + pushUps
-					+ "/"+pushupToDo+"\n" + burnedCalories(70.0) + " kcal");
-	}
+   @Override
+   public void onSensorChanged(SensorEvent event)
+   {
+      float[] value = event.values;
 
-	/*
-	 * encapsulated method to increase done pushups check for progress
-	 */
-	private void increaseDonePushups() {
-		pushUps++;
-		progress = (pushUps * 100 / pushupToDo);
+      if (value[0] > 1)
+      {
+      }
+      else
+      {
+         /*
+          * update counter label only when proximity sensor is active in toggled
+          * state
+          */
+         if (toggled)
+         {
+            increaseDonePushups();
+            setPushupCounterLabel();
+         }
+      }
+   }
 
-		if (progress == 100) {
-			createShareDialog();
-			Toast.makeText(this, "You have finished this activity",
-					Toast.LENGTH_LONG).show();
-		}
-	}
+   /*
+    * Set pushup counter labels
+    */
+   private void setPushupCounterLabel()
+   {
+      if (toggled)
+         buzz.setText("Pushup-Counter: " + pushUps + "/" + pushupToDo + "\n"
+            + burnedCalories(70.0) + " kcal");
+      else
+         pushupCounterTextView.setText("Pushup-Counter: " + pushUps
+            + "/" + pushupToDo + "\n" + burnedCalories(70.0) + " kcal");
+   }
 
-	/*
-	 * give progress back to activity overview
-	 */
-	@Override
-	public void finish() {
-		// TODO Auto-generated method stub
-		Intent i = new Intent();
-		i.putExtra("progress", pushUps);
-		i.putExtra("hashcode", source);
-		setResult(0, i);
-		
-		super.finish();
-	}
+   /*
+    * encapsulated method to increase done pushups check for progress
+    */
+   private void increaseDonePushups()
+   {
+      pushUps++;
+      progress = (pushUps * 100 / pushupToDo);
+
+      if (progress == 100)
+      {
+         createShareDialog();
+         Toast.makeText(this, "You have finished this activity",
+            Toast.LENGTH_LONG).show();
+      }
+   }
+
+   /*
+    * give progress back to activity overview
+    */
+   @Override
+   public void finish()
+   {
+      // TODO Auto-generated method stub
+      Intent i = new Intent();
+      i.putExtra("progress", pushUps);
+      i.putExtra("hashcode", source);
+      setResult(0, i);
+
+      super.finish();
+   }
 }

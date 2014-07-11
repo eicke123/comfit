@@ -9,84 +9,97 @@ import de.comfit.SportActivity;
 /**
  * Class to hold methods for situp activity
  */
-public class SitUpActiv extends SportActiv {
-	public static final int CAL_PER_SITUP = 1;
-	private int situps;
-	
-	private int source;
+public class SitUpActiv extends SportActiv
+{
+   public static final int CAL_PER_SITUP = 1;
+   private int situps;
 
-	public SitUpActiv(SportActivity context) {
-		super(context);
-	}
+   private int source;
 
-	public SitUpActiv() {
-	}
+   public SitUpActiv(SportActivity context)
+   {
+      super(context);
+   }
 
-	private void start() {
-		source = this.hashCode();
-		
-		Intent intent = new Intent(context, SitUpService.class);
-		intent.putExtra("situps", situps);
-		intent.putExtra("hashcode", source);
-		context.startService(intent);
-	}
+   public SitUpActiv()
+   {
+   }
 
-	public int getSitups() {
-		return situps;
-	}
+   private void start()
+   {
+      source = this.hashCode();
 
-	public void setSitups(int situps) {
-		this.situps = situps;
-	}
+      Intent intent = new Intent(context, SitUpService.class);
+      intent.putExtra("situps", situps);
+      intent.putExtra("hashcode", source);
+      context.startService(intent);
+   }
 
-	@Override
-	public double getCalStep(double weight) {
-		// TODO Auto-generated method stub
-		return 0.2;
-	}
+   public int getSitups()
+   {
+      return situps;
+   }
 
-	@Override
-	public void start(View source) {
-		// TODO Auto-generated method stub
-		this.setSource(source);
+   public void setSitups(int situps)
+   {
+      this.situps = situps;
+   }
 
-		start();
-	}
+   @Override
+   public double getCalStep(double weight)
+   {
+      // TODO Auto-generated method stub
+      return 0.2;
+   }
 
-	// TODO call right updateProgress Method and update progressbar
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		SportActiv activ = super.getSportActivByHash(intent.getIntExtra(
-				"hashcode", 0));
-		int situpsDone = intent.getIntExtra("doneSitUps", 1);
-		activ.updateProgress(
-				situpsDone * 100 / ((SitUpActiv) activ).getSitups(),
-				situpsDone, activ);
-	}
-	
-	@Override
-	public int getMaxWorkoutSize() {
-		// TODO Auto-generated method stub
-		return 50;
-	}
-	
-	@Override
-	public int getMinWorkoutSize() {
-		// TODO Auto-generated method stub
-		return 10;
-	}
+   @Override
+   public void start(View source)
+   {
+      // TODO Auto-generated method stub
+      this.setSource(source);
 
-	@Override
-	public void setWorkoutSize(int size) {
-		// TODO Auto-generated method stub
-		situps = size;
-	}
-	
-	@Override
-	public int getWorkoutSize() {
-		// TODO Auto-generated method stub
-		return situps;
-	}
+      start();
+   }
+
+   // TODO call right updateProgress Method and update progressbar
+   @Override
+   public void onReceive(Context context, Intent intent)
+   {
+      SportActiv activ = super.getSportActivByHash(intent.getIntExtra(
+         "hashcode", 0));
+      int situpsDone = intent.getIntExtra("doneSitUps", 1);
+      activ.updateProgress(
+         situpsDone * 100 / ((SitUpActiv) activ).getSitups(),
+         situpsDone, activ);
+   }
+
+   @Override
+   public int getMaxWorkoutSize()
+   {
+      // TODO Auto-generated method stub
+      return 50;
+   }
+
+   @Override
+   public int getMinWorkoutSize()
+   {
+      // TODO Auto-generated method stub
+      return 10;
+   }
+
+   @Override
+   public void setWorkoutSize(int size)
+   {
+      // TODO Auto-generated method stub
+      situps = size;
+   }
+
+   @Override
+   public int getWorkoutSize()
+   {
+      // TODO Auto-generated method stub
+      return situps;
+   }
 
    @Override
    public String getLabel()
