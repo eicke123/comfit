@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,7 +107,17 @@ public class SportActivity extends Activity {
 			try {
 				ac = (SportActiv) activ.getConstructor(SportActivity.class)
 						.newInstance(this);
-				cal -= ac.getCalStep();
+
+				SharedPreferences sharedPref = getSharedPreferences(
+						getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+				// get user name
+				double weight = Double.valueOf((sharedPref.getString(getString(R.string.name), "75.0")));
+				
+				int toDo = ac.getMinWorkoutSize() + (int)(Math.random()*ac.getMaxWorkoutSize());
+				cal -= toDo * ac.getCalStep(weight);
+				
+				ac.setWorkoutSize(toDo);
 				sportActivs.add(ac);
 			} catch (InstantiationException e) {
 				e.printStackTrace();

@@ -44,9 +44,9 @@ public class RunningActiv extends SportActiv {
 	}
 
 	@Override
-	public double getCalStep() {
+	public double getCalStep(double weight) {
 		// TODO Auto-generated method stub
-		return 500;
+		return 0.5;
 	}
 
 	@Override
@@ -69,4 +69,21 @@ public class RunningActiv extends SportActiv {
 				activ);
 	}
 
+	@Override
+	public int getMaxWorkoutSize() {
+		// TODO Auto-generated method stub
+		return 10000;
+	}
+	
+	@Override
+	public int getMinWorkoutSize() {
+		// TODO Auto-generated method stub
+		return 10;
+	}
+	
+	@Override
+	public void setWorkoutSize(int size) {
+		// TODO Auto-generated method stub
+		steps = size;
+	}
 }

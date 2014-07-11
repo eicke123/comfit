@@ -1,14 +1,17 @@
 package de.comfit.sport;
 
+import android.R.integer;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
+import android.widget.EditText;
 import de.comfit.PushupActivity;
+import de.comfit.R;
 import de.comfit.SportActivity;
 
 public class PushUpActiv extends SportActiv {
 
-	public static double weight;
 	private int pushups;
 	
 	private int source;
@@ -29,7 +32,7 @@ public class PushUpActiv extends SportActiv {
 	}
 
 	@Override
-	public double getCalStep() {
+	public double getCalStep(double weight) {
 		double burnedCaloriesPerPushup = ((weight * 0.7) * 9.81 * 0.3) / 4.1868;
 		burnedCaloriesPerPushup = burnedCaloriesPerPushup / 1000;
 		burnedCaloriesPerPushup = burnedCaloriesPerPushup
@@ -53,6 +56,24 @@ public class PushUpActiv extends SportActiv {
 
 	public void setPushups(int pushups) {
 		this.pushups = pushups;
+	}
+	
+	@Override
+	public int getMaxWorkoutSize() {
+		// TODO Auto-generated method stub
+		return 50;
+	}
+	
+	@Override
+	public int getMinWorkoutSize() {
+		// TODO Auto-generated method stub
+		return 5;
+	}
+	
+	@Override
+	public void setWorkoutSize(int size) {
+		// TODO Auto-generated method stub
+		pushups = size;
 	}
 
 }

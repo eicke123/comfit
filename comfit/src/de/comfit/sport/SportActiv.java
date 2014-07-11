@@ -92,7 +92,10 @@ public abstract class SportActiv extends BroadcastReceiver {
 		alertDialog.show();
 	}
 
-	public abstract double getCalStep();
+	public abstract double getCalStep(double weight);
+	public abstract int getMinWorkoutSize();
+	public abstract int getMaxWorkoutSize();
+	public abstract void setWorkoutSize(int size);
 
 	public void setIndex(int index) {
 		this.index = index;

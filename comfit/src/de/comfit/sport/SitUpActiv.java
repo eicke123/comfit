@@ -37,9 +37,9 @@ public class SitUpActiv extends SportActiv {
 	}
 
 	@Override
-	public double getCalStep() {
+	public double getCalStep(double weight) {
 		// TODO Auto-generated method stub
-		return 500;
+		return 0.2;
 	}
 
 	@Override
@@ -59,6 +59,24 @@ public class SitUpActiv extends SportActiv {
 		activ.updateProgress(
 				situpsDone * 100 / ((SitUpActiv) activ).getSitups(),
 				situpsDone, activ);
+	}
+	
+	@Override
+	public int getMaxWorkoutSize() {
+		// TODO Auto-generated method stub
+		return 50;
+	}
+	
+	@Override
+	public int getMinWorkoutSize() {
+		// TODO Auto-generated method stub
+		return 10;
+	}
+
+	@Override
+	public void setWorkoutSize(int size) {
+		// TODO Auto-generated method stub
+		situps = size;
 	}
 
 }
