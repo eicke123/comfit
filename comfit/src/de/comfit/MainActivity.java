@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
 			
 		}
 		else {
-			intent.putExtra("caloriesToBurn", Integer.valueOf(textView.getText().toString()));
+			intent.putExtra("caloriesToBurn", Integer.valueOf(textView.getText().toString())*1000);
 			startActivity(intent);
 		}
 	}
