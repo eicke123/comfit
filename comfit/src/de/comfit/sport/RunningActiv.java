@@ -67,9 +67,6 @@ public class RunningActiv extends SportActiv {
 				activ);
 		int stepsTodo = intent.getIntExtra(StepService.STEPSTODO, 1);
 		
-		
-		
-		
 	}
 
 	@Override

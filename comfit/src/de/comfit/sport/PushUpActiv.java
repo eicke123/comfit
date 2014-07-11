@@ -76,19 +76,16 @@ public class PushUpActiv extends SportActiv {
 		pushups = size;
 	}
 
-<<<<<<< Updated upstream
-   @Override
+	@Override
    public String getLabel()
    {
       // TODO Auto-generated method stub
       return "pushup";
    }
 
-=======
 	@Override
 	public int getWorkoutSize() {
 		// TODO Auto-generated method stub
 		return pushups;
 	}
->>>>>>> Stashed changes
 }
