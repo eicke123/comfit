@@ -8,7 +8,7 @@ package de.comfit.history;
 public class WorkoutHistoryCreater {
 
 	public static WorkoutData[] getTestData() {
-		// create 2 workouts with 3 workout items each 
+		// create 2 workouts with 3 workout items each
 		WorkoutData workoutData[] = new WorkoutData[2];
 		WorkoutItem workoutItem[] = new WorkoutItem[3];
 		String[] workoutTypes = { "pushUps", "jogging", "walking" };

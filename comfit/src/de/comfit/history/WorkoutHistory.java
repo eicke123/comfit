@@ -18,7 +18,7 @@ import de.comfit.R;
  * 
  */
 public class WorkoutHistory implements Serializable {
-	
+
 	private static final long serialVersionUID = -4735131709016438522L;
 	private WorkoutData[] data;
 

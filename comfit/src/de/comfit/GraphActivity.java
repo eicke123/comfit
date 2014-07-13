@@ -45,7 +45,8 @@ public class GraphActivity extends Activity {
 	private void showGraph() {
 		// init example series data
 		WorkoutData[] data = (new WorkoutHistory()).loadWorkoutData(this);
-		if (data != null && dataPosition != DEFAULT_POSITION && itemPosition != DEFAULT_POSITION) {
+		if (data != null && dataPosition != DEFAULT_POSITION
+				&& itemPosition != DEFAULT_POSITION) {
 			// get the data from file and show only the data which belongs to
 			// the right workout item (item position) in the right workout data
 			// (data position)

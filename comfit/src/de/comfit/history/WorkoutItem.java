@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 /**
  * 
- * @author Waldo
- * This class holds the data for one workout item (like push ups or sit ups)
- *  
+ * @author Waldo This class holds the data for one workout item (like push ups
+ *         or sit ups)
+ * 
  */
 public class WorkoutItem implements Serializable {
-	
+
 	private static final long serialVersionUID = 6121009836013828691L;
 	private String label;
 	private long durationInSeconds;

@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 /**
  * 
- * @author Waldo
- * This class holds the data for one workout
- *  
+ * @author Waldo This class holds the data for one workout
+ * 
  */
 public class WorkoutData implements Serializable {
 
